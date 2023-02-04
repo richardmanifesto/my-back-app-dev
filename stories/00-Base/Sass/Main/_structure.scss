@@ -1,0 +1,24 @@
+html, body {
+  background-color: #fff;
+  color      : $colour-grey;
+  font-family: $font-primary;
+  font-size  : #{$font-size}px;
+  font-weight: $font-weight;
+
+  //@media (prefers-color-scheme: dark) {
+  //  background-color: $colour-grey;
+  //  color: #fff;
+  //}
+}
+
+body {
+
+}
+
+p {
+  margin-bottom: $padding-small;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

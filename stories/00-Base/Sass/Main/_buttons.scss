@@ -1,0 +1,16 @@
+.b-button-primary {
+  @include button-primary;
+}
+
+.b-button-secondary {
+  @include button-secondary;
+}
+
+.b-button-action {
+  @include button-action;
+}
+
+.b-button-action-small {
+  @include button-action;
+  @include button-small;
+}

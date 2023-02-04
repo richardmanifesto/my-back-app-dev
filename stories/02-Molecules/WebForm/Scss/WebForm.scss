@@ -1,0 +1,12 @@
+@import "../../../00-Base/Sass/config";
+
+.m-webform {
+  background-color: $colour-blue-light;
+
+  button {
+    @include button-primary;
+    padding-bottom: $padding-small;
+    padding-top   : $padding-small;
+    width: 100%;
+  }
+}

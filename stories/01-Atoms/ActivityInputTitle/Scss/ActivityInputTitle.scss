@@ -1,0 +1,69 @@
+@import "../../../00-Base/Sass/config";
+
+.m-activity-input-title {
+  position: relative;
+
+  span {
+    color    : $colour-russet;
+    left     : -0.1em;
+    position : absolute;
+    top      : 50%;
+    transform: translateY(-49%);
+
+
+    &:before {
+      color      : $colour-grey;
+      font-family: $font-icons;
+      font-size  : 1.2em;
+    }
+  }
+}
+
+.m-activity-input-title[data-activity-type="exercise"] {
+  padding-left: 2em;
+}
+
+
+.m-activity-input-title[data-activity-type="sleep"],
+.m-activity-input-title[data-activity-type="sitting"],
+.m-activity-input-title[data-activity-type="steps"],
+.m-activity-input-title[data-activity-type="walking"] {
+  padding-left: 1.6em;
+}
+
+.m-activity-input-title[data-activity-type="exercise"] {
+  span:before {
+    //color    : $colour-green;
+    content  : "sprint";
+    font-size: 1.6em;
+  }
+}
+
+
+.m-activity-input-title[data-activity-type="sleep"] {
+  span:before {
+    //color  : $colour-orange;
+    content: "bedtime";
+  }
+}
+
+.m-activity-input-title[data-activity-type="sitting"] {
+  span:before {
+    //color  : $colour-blue;
+    content: "airline_seat_legroom_normal";
+  }
+}
+
+.m-activity-input-title[data-activity-type="steps"] {
+  span:before {
+    //color  : $colour-yellow;
+    content: "footprint";
+  }
+}
+
+.m-activity-input-title[data-activity-type="walking"] {
+  span:before {
+    //color  : $colour-green;
+    content: "directions_walk";
+  }
+}

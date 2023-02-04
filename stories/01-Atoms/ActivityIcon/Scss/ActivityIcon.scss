@@ -1,0 +1,106 @@
+@import "../../../00-Base/Sass/config";
+
+.a-activity-icon {
+  display   : inline-block;
+  text-align: center;
+  width     : 3em;
+
+  @media (min-width: $break-medium) {
+    width: 4em;
+  }
+
+  @media (min-width: $break-large) {
+    width: 5em;
+  }
+}
+
+.a-activity-icon__icon {
+  aspect-ratio    : 1;
+  border-radius   : 50%;
+  overflow        : hidden;
+  position        : relative;
+  width           : 100%;
+
+  &:after {
+    font-family: $font-icons;
+    font-size  : 1.8em;
+    left       : 50%;
+    line-height: 0.9em;
+    margin     : -0.08em 0 0;
+    position   : absolute;
+    top        : 50%;
+    transform  : translate(-50%, -50%);
+
+    @media (min-width: $break-medium) {
+      font-size: 2.3em;
+    }
+
+    @media (min-width: $break-large) {
+      font-size: 3em;
+    }
+  }
+}
+
+.a-activity-icon__label,
+.a-activity-icon__value {
+  @include text-small;
+  margin-top: $padding-x-small;
+}
+
+.a-activity-icon[data-icon-type="exercise"] {
+  .a-activity-icon__icon {
+    background-color: $colour-green-tint;
+
+    &:after {
+      color     : $colour-green;
+      content   : "sprint";
+      margin-top: 0.04em;
+    }
+  }
+}
+
+.a-activity-icon[data-icon-type="sleep"] {
+  .a-activity-icon__icon {
+    background-color: $colour-orange-tint;
+
+    &:after {
+      color  : $colour-orange;
+      content: "bedtime";
+    }
+  }
+}
+
+.a-activity-icon[data-icon-type="sitting"] {
+  .a-activity-icon__icon {
+    background-color: $colour-blue-tint;
+
+    &:after {
+      color     : $colour-blue;
+      content   : "airline_seat_legroom_normal";
+      margin-top: 0.02em;
+    }
+  }
+}
+
+.a-activity-icon[data-icon-type="steps"] {
+  .a-activity-icon__icon {
+    background-color: $colour-yellow-tint;
+
+    &:after {
+      color     : $colour-yellow;
+      content   : "footprint";
+      margin-top: 0.04em;
+    }
+  }
+}
+
+.a-activity-icon[data-icon-type="walking"] {
+  .a-activity-icon__icon {
+    background-color: $colour-green-tint;
+
+    &:after {
+      color  : $colour-green;
+      content: "directions_walk";
+    }
+  }
+}

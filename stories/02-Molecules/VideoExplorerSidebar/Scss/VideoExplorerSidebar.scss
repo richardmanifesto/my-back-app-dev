@@ -1,0 +1,116 @@
+@import "../../../00-Base/Sass/config";
+
+.m-video-explorer-sidebar {
+  max-width : $container-box-width;
+  height    : 100vh;
+  overflow-y: scroll;
+  position  : relative;
+  transition: width 300ms ease-out;
+  width     : 0;
+}
+
+.m-video-explorer-sidebar__checkbox-wrap {
+  position: relative;
+
+  input {
+    position: absolute;
+    height: 1px;
+    width : 1px;
+  }
+
+  input:checked + label {
+    &:before {
+      content: 'done';
+    }
+  }
+
+  label {
+    cursor    : pointer;
+    display   : block;
+    min-height: 1.35em;
+    padding   : 0 0 0 1.6em;
+
+    &:before {
+      background-color: #fff;
+      border : 1px solid $colour-blue;
+      color: $colour-blue;
+      content: '';
+      display: block;
+      font-family: $font-icons;
+      font-size: 1.1em;
+      height : 1.15em;
+      left       : 0;
+      line-height: 1em;
+      position: absolute;
+      text-align: center;
+      width  : 1.15em;
+    }
+  }
+}
+
+.m-video-explorer-sidebar__close {
+  margin    : 0 0 $padding-small;
+  text-align: right;
+
+  button {
+    @include button-close;
+  }
+}
+
+.m-video-explorer-sidebar__inner {
+  background-color: $colour-off-white;
+  border-right    : 1px solid $colour-grey-light;
+  box-shadow      : -1em 0 3.2em $colour-grey;
+  margin          : 0 3em 0 0;
+  min-height      : 100%;
+  padding         : $padding-small $padding-small $padding-medium;
+}
+
+.m-video-explorer-sidebar__filters {
+  li {
+    list-style: none;
+    margin    : 0 0 $padding-x-small;
+  }
+
+  ul {
+    margin : 0;
+    padding: 0;
+  }
+}
+
+.m-video-explorer-sidebar__filters-title {
+  margin: 0 0 $padding-small;
+}
+
+.m-video-explorer-sidebar__search {
+  border-bottom: 1px solid $colour-grey-light;
+  padding: 0 0 $padding-medium;
+  margin : 0 0 $padding-medium;
+
+  label {
+    color  : transparent;
+    display: block;
+    height : 1px;
+    width  : 1px;
+  }
+}
+
+.m-video-explorer-sidebar__search-input-wrap {
+  input {
+    background-color: #fff;
+    border          : 1px solid #fff;
+    border-radius   : 0.3em;
+    overflow        : hidden;
+    outline         : none;
+    padding         : $padding-x-small;
+    width           : 100%;
+
+    &:focus {
+      border-color: $colour-blue;
+    }
+  }
+}
+
+.m-video-explorer-sidebar[data-state-open="true"] {
+  width: 100%;
+}

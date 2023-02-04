@@ -1,0 +1,16 @@
+@import "../../../00-Base/Sass/config";
+
+.a-video {
+  margin   : 0 auto;
+  max-width: $container-content-width;
+}
+
+.a-video__description {
+  margin: $padding-small 0 0;
+}
+
+.a-video__player-wrap {
+  aspect-ratio    : 16 / 9;
+  background-color: $colour-off-white;
+  margin          : 0 0 $padding-medium;
+}

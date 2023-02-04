@@ -1,0 +1,56 @@
+@import "../../../00-Base/Sass/config";
+
+.a-top-bar {
+  background-color: #fff;
+  border-bottom   : 1px solid $colour-blue-light;
+  padding   : $padding-small 2.5em;
+  position  : relative;
+  text-align: center;
+}
+
+.a-top-bar__back-link,
+.a-top-bar__forward-link {
+  background-color: #fff;
+  border     : 1px solid transparent;
+  bottom     : 0;
+  color      : $colour-grey;
+  outline    : 0;
+  overflow   : hidden;
+  position   : absolute;
+  text-indent: -100em;
+  top        : 0;
+  text-decoration: none;
+  width      : 2.5em;
+
+  &:after {
+    font-family: $font-icons;
+    position   : absolute;
+    left       : 50%;
+    margin     : -0.5em 0 0 -0.35em;
+    font-size  : 1.6em;
+    text-indent: 0;
+    top        : 50%;
+  }
+
+  &:focus,
+  &:hover {
+    border-color: $colour-blue;
+    color: $colour-blue;
+  }
+}
+
+.a-top-bar__back-link {
+  left: 0;
+
+  &:after {
+    content: "arrow_back_ios";
+  }
+}
+
+.a-top-bar__forward-link {
+  right: 0;
+
+  &:after {
+    content: "arrow_forward_ios";
+  }
+}

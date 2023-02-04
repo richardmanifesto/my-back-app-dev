@@ -1,0 +1,28 @@
+@import "../../../00-Base/Sass/config";
+
+.o-diary {
+  .m-sheets__sheet-inner {
+    @include bottom-bar-padding;
+    padding-left : $padding-medium;
+    padding-right: $padding-medium;
+    padding-top  : 3 * $padding-large;
+  }
+}
+
+.o-diary__activity-sheet {
+  background-color: #fff;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 5;
+}
+
+.o-diary__header {
+  left    : 0;
+  position: absolute;
+  right   : 0;
+  top     : 0;
+  z-index : 3;
+}

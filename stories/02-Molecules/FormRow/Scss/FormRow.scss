@@ -1,0 +1,11 @@
+@import "../../../00-Base/Sass/config";
+
+.m-form-row {
+  max-width: $container-content-width;
+  margin   : 0 auto $padding-medium;
+  padding  : 0 $padding-medium;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,15 @@
+@mixin bottom-bar-height {
+  height: 4em;
+
+  @media (min-width: $break-large) {
+    height: 4.5em;
+  }
+}
+
+@mixin bottom-bar-padding {
+  padding-bottom: 5em;
+
+  @media (min-width: $break-large) {
+    padding-bottom: 5.5em;
+  }
+}

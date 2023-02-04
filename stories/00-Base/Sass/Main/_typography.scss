@@ -1,0 +1,36 @@
+h1,
+.b-pseudo-heading-h1 {
+  @include text-h1;
+}
+
+h2,
+.b-pseudo-heading-h2 {
+  @include text-h2;
+}
+
+h3,
+.b-pseudo-heading-h3 {
+  @include text-h3;
+}
+
+h4,
+.b-pseudo-heading-h4 {
+  @include text-h4;
+}
+
+h5,
+.b-pseudo-heading-h5 {
+  @include text-h5;
+}
+
+.b-text-stand-first {
+  @include text-stand-first;
+}
+
+a {
+  @include text-link;
+}
+
+small {
+  @include text-small;
+}

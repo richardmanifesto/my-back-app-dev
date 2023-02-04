@@ -1,0 +1,63 @@
+@import "../../../00-Base/Sass/config";
+
+.o-home-screen {
+  @include bottom-bar-padding;
+  display        : flex;
+  flex-direction : column;
+  height         : 100vh;
+  justify-content: center;
+  padding-left   : $padding-small;
+  padding-right  : $padding-small;
+  padding-top    : $padding-large + $padding-small;
+  position       : relative;
+  text-align     : center;
+}
+
+.o-home-screen__activity-sheet {
+  background-color: #fff;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 5;
+}
+
+.o-home-screen__inner {
+  max-width: $container-content-width;
+  margin   : 0 auto;
+}
+
+.o-home-screen__logo,
+.o-home-screen__welcome-message {
+  margin-bottom: $padding-large;
+}
+
+.o-home-screen__logo {
+  left    : 0;
+  padding : $padding-small;
+  position: absolute;
+  right   : 0;
+  top     : 0;
+}
+
+.o-home-screen__main {
+  padding-top: $padding-large;
+}
+
+.o-home-screen__main-action {
+  margin-bottom: 2 * $padding-large;
+}
+
+.o-home-screen__overview {
+  display  : flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin   : 0;
+  padding  : 0;
+
+  li {
+    list-style: none;
+    margin    : 0 $padding-x-small $padding-small;
+  }
+}

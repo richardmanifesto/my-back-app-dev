@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg preserveAspectRatio="none" width="375px" height="53px" viewBox="0 0 375 53" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Styleguide-and-design-examples" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Welcome-screen-Copy-2" transform="translate(0.000000, -196.000000)" fill="#D8D8D8">
+            <path d="M375,196 L375.006468,248.369339 C479.32217,311.778792 549,426.502332 549,557.5 C549,757.150937 387.150937,919 187.5,919 C-12.1509371,919 -174,757.150937 -174,557.5 C-174,426.501913 -104.321724,311.778058 -0.00546680223,248.368731 L0,196 L375,196 Z M187.5,196 C118.84715,196 54.6640974,215.137474 -0.00546680223,248.368731 L0,667 L375,667 L375.006468,248.369339 C320.336686,215.137708 256.153269,196 187.5,196 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

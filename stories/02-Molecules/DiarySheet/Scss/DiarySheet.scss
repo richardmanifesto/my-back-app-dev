@@ -1,0 +1,40 @@
+@import "../../../00-Base/Sass/config";
+
+.m-diary-sheet {
+  border-left          : 1px solid $colour-russet;
+  border-top           : 1px solid $colour-russet;
+  display              : grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin               : 0 auto;
+  max-width            : $container-content-width;
+
+  button {
+    aspect-ratio    : 1;
+    background-color: $colour-blue-tint;
+    border-radius   : 50%;
+    padding         : $padding-x-small;
+    min-width       : 2.2em;
+
+    &:focus,
+    &:hover {
+      background-color: $colour-grey;
+      color: #fff;
+    }
+
+    &[data-is-current="true"] {
+      background-color: $colour-orange;
+    }
+  }
+
+  li {
+    background-color: #fff;
+    align-items    : center;
+    aspect-ratio   : 1;
+    display        : flex;
+    flex-direction : column;
+    justify-content: center;
+    list-style     : none;
+    border-bottom  : 1px solid $colour-russet;
+    border-right   : 1px solid $colour-russet;
+  }
+}

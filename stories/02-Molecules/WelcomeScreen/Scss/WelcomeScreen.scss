@@ -1,0 +1,171 @@
+@import "../../../00-Base/Sass/config";
+
+.m-welcome-screen {
+  background-color: $colour-off-white;
+  overflow: hidden;
+}
+
+.m-welcome-screen__action {
+  bottom    : $padding-large;
+  left      : 0;
+  opacity   : 0;
+  padding   : 0 $padding-medium;
+  position  : absolute;
+  right     : 0;
+  text-align: center;
+  transition: opacity 900ms ease-out 1200ms;
+  z-index   : 3;
+
+  @media (min-width: $break-medium) {
+    bottom: ($padding-large + $padding-medium);
+  }
+
+  @media (min-width: $break-large) {
+    bottom: (2 * $padding-large);
+  }
+
+  @media (min-width: $break-wide) {
+    bottom: (2 * $padding-large) + $padding-medium;
+  }
+
+  button {
+    @include button-primary-large;
+    box-shadow: 0 0 1.2em $colour-grey;
+    min-width: 18rem;
+  }
+}
+
+.m-welcome-screen__image {
+  background-color: #b4b4b4;
+  height  : 70%;
+  overflow: hidden;
+  position: relative;
+  z-index : 1;
+
+  @media (min-width: $break-medium) {
+    height: 75%;
+  }
+
+  &:after {
+    background-color: white;
+    content      : '';
+    height       : 3em;
+    left         : 0;
+    mask-image   : url("/public/svg/curve-mask-top.svg");
+    mask-position: 0 100%;
+    mask-repeat  : no-repeat;
+    mask-size    : 100% 100%;
+    position     : absolute;
+    right        : 0;
+    top          : 0;
+    z-index      : 2;
+    transform : scaleY(3) scaleX(2);
+    transition: all 1200ms ease-out;
+    transform-origin: center top;
+  }
+
+  img {
+    height    : 100%;
+    mix-blend-mode: multiply;
+    object-fit: cover;
+    width     : 100%;
+    transform : scale(1.3);
+    transition: all 1200ms ease-out;
+  }
+}
+
+.m-welcome-screen__inner {
+  background-color: #fff;
+  height  : 100vh;
+  margin  : 0 (-1 * $padding-medium);
+  position: relative;
+
+  &:after,
+  &:before {
+    background-color: $colour-yellow;
+    border-radius : 50%;
+    display       : block;
+    content       : '';
+    mix-blend-mode: multiply;
+    position      : absolute;
+    z-index       : 2;
+  }
+
+  &:after {
+    height    : 6em;
+    right     : -3em;
+    margin    : -1em 0 0;
+    transform : scale(0);
+    transition: transform 900ms ease-out 100ms;
+    top       : 30%;
+    width     : 6em;
+
+    @media (min-width: $break-medium) {
+      height : 11em;
+      right  : -6em;
+      margin : -4em 0 0;
+      top    : 25%;
+      width  : 11em
+    }
+  }
+
+  &:before {
+    bottom    : -4em;
+    height    : 18em;
+    left      : -14em;
+    transform : scale(0.1);
+    transition: transform 900ms ease-out 500ms;
+    width     : 18em;
+
+    @media (min-width: $break-medium) {
+      bottom : -9em;
+      height : 32em;
+      left   : -26em;
+      width  : 32em;
+    }
+
+  }
+}
+
+.m-welcome-screen__title {
+  display        : flex;
+  flex-direction : column;
+  justify-content: center;
+  height         : 30%;
+  padding        : 0 $padding-medium;
+  opacity        : 0;
+  text-align     : center;
+  transition     : opacity 900ms ease-out 900ms;
+
+  @media (min-width: $break-medium) {
+    height: 25%;
+  }
+}
+
+.m-welcome-screen[data-initialised="true"] {
+  .m-welcome-screen__action {
+    opacity: 1;
+  }
+
+  .m-welcome-screen__image {
+    &:after {
+      transform: scale(1);
+    }
+
+    img {
+      opacity  : 1;
+      transform: scale(1);
+    }
+  }
+
+  .m-welcome-screen__inner {
+    &:after,
+    &:before {
+      transform: scale(1);
+    }
+  }
+
+  .m-welcome-screen__title {
+    opacity: 1;
+  }
+}

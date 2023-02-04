@@ -1,0 +1,118 @@
+@import "../../../00-Base/Sass/config";
+
+
+.o-video-explorer {
+  @include bottom-bar-padding;
+
+  .m-video-explorer-sidebar {
+    bottom  : 0;
+    left    : 0;
+    position: fixed;
+    top     : 0;
+    z-index : 3;
+  }
+}
+
+.o-video-explorer__list {
+  margin : 0;
+  padding: 3em 0 0;
+
+  li {
+    border-bottom : 1px solid $colour-grey-light;
+    list-style    : none;
+    margin-bottom : $padding-large;
+    padding       : 0 $padding-small $padding-large;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.o-video-explorer__pagination {
+  padding: $padding-medium 0;
+}
+
+.o-video-explorer__pagination-list {
+  display        : flex;
+  justify-content: center;
+  margin         : 0 auto;
+  max-width      : $container-content-width;
+
+  button {
+    align-items: center;
+    display    : flex;
+    font-weight: bold;
+
+    &[data-type="next"]:after,
+    &[data-type="previous"]:before {
+      font-family   : $font-icons;
+      font-size     : 0.8em;
+    }
+
+    &[data-type="next"] {
+      &:after {
+        content: 'arrow_forward_ios';
+        margin : 0 0 0 $padding-x-small;
+      }
+    }
+
+    &[data-type="previous"] {
+      &:before {
+        content: 'arrow_back_ios';
+        margin : 0 $padding-x-small 0 0;
+      }
+    }
+
+  }
+
+  li {
+    list-style: none;
+    margin    : 0 $padding-small;
+  }
+}
+
+.o-video-explorer__toolbar {
+  background-color: #fff;
+  border-bottom: 1px solid $colour-grey-light;
+  left    : 0;
+  position: fixed;
+  right   : 0;
+  top     : 0;
+  z-index : 2;
+}
+
+.o-video-explorer__toolbar__inner {
+  margin    : 0 auto;
+  max-width : $container-content-width;
+  text-align: right;
+
+  button {
+    color   : transparent;
+    height  : 2.5em;
+    overflow: hidden;
+    position: relative;
+    width   : 2.5em;
+
+    &:after {
+      color      : $colour-grey;
+      content    : 'filter_list';
+      font-family: $font-icons;
+      font-size  : 1.6em;
+      left       : 0;
+      position   : absolute;
+      right      : 0;
+      text-align : center;
+      top        : 0.2em;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: $colour-grey;
+
+      &:after {
+        color: #fff;
+      }
+    }
+  }
+}

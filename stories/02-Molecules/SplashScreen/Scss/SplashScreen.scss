@@ -1,0 +1,93 @@
+@import "../../../00-Base/Sass/config";
+
+.m-splash-screen {
+  bottom  : 0;
+  height  : 100vh;
+  left    : 0;
+  position: fixed;
+  overflow: hidden;
+  right   : 0;
+  top     : 0;
+  z-index : 5;
+
+  &:before {
+    background-color: #fff;
+    bottom  : 0;
+    content : '';
+    left    : 0;
+    position: absolute;
+    right   : 0;
+    top     : 0;
+    z-index : 1;
+  }
+}
+
+.m-splash-screen__inner {
+  display        : flex;
+  flex-direction : column;
+  height         : 100%;
+  justify-content: center;
+  margin         : 0 auto;
+  max-width      : $container-slim-width;
+  opacity        : 0;
+  padding        : $padding-medium;
+  position       : relative;
+  transition     : opacity 700ms ease-out 800ms;
+  z-index        : 3;
+}
+
+.m-splash-screen__wrap {
+  height    : 100%;
+  opacity   : 1;
+  position  : relative;
+  transition: opacity 600ms ease-out 200ms;
+  z-index   : 2;
+
+  &:after {
+    background-color: $colour-yellow;
+    border-radius: 50%;
+    content   : '';
+    display   : block;
+    height    : 200vh;
+    left      : 0;
+    overflow  : hidden;
+    position  : absolute;
+    transform : translate(-50%, 0) scale(1.6);
+    width     : 200vh;
+    top       : 0;
+    z-index   : 1;
+
+    @media (min-width: $break-large) {
+      transform : translate(-50%, 0) scale(1.8);
+    }
+
+  }
+}
+
+.m-splash-screen[data-state="exit"] {
+  .m-splash-screen__wrap {
+    opacity: 0;
+
+    &:after {
+      transition: transform 100ms ease-out 300ms;
+      transform : translate(-50%, 0) scale(2);
+    }
+  }
+}
+
+.m-splash-screen[data-state="ready"] {
+  .m-splash-screen__inner {
+    opacity: 1;
+  }
+
+  .m-splash-screen__wrap {
+    &:after {
+      transition: transform 900ms ease-out 300ms;
+      transform : translate(-50%, 0) scale(1);
+
+      @media (min-width: $break-large) {
+        transform : translate(-50%, 0) scale(1.3);
+      }
+    }
+  }
+}

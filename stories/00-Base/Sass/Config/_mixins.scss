@@ -1,0 +1,8 @@
+// USAGE: @include font-size(font-size in px, line height in px); line-height optional
+// USAGE: @include font-size(12);
+// USAGE: @include font-size(12, 20);
+@use "sass:math";
+
+@function em($pixels, $context: $font-size) {
+  @return #{math.div($pixels, $context)}em;
+}

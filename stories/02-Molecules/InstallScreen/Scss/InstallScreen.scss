@@ -1,0 +1,116 @@
+@import "../../../00-Base/Sass/config";
+
+.m-install-screen {
+  height: 100vh;
+  padding: 0 $padding-medium;
+}
+
+.m-install-screen__action-primary,
+.m-install-screen__action-secondary {
+  text-align: center;
+}
+
+.m-install-screen__action-primary {
+  margin: 0 0 $padding-medium;
+
+  button {
+    @include button-primary;
+  }
+}
+
+.m-install-screen__action-secondary {
+  button  {
+    @include text-link;
+    @include text-small;
+  }
+}
+
+.m-install-screen__description {
+  margin: 0 0 $padding-large;
+}
+
+.m-install-screen__inner {
+  display        : flex;
+  flex-direction : column;
+  height         : 100%;
+  justify-content: center;
+  margin         : 0 auto;
+  max-width      : $container-content-width;
+  position       : relative;
+}
+
+.m-install-screen__ios {
+  background-color: rgba(255, 255, 255, 0.9);
+  bottom          : 0;
+  display         : flex;
+  flex-direction  : column;
+  justify-content : center;
+  left            : 0;
+  position        : absolute;
+  right           : 0;
+  top             : 0;
+}
+
+.m-install-screen__ios-close {
+  text-align: right;
+
+  button {
+    @include button-close;
+  }
+}
+
+.m-install-screen__ios-inner {
+  background-color: $colour-blue;
+  padding         : $padding-medium $padding-small;
+  position        : relative;
+}
+
+.m-install-screen__ios-step-share,
+.m-install-screen__ios-title {
+  margin-bottom: $padding-medium;
+}
+
+.m-install-screen__ios-step-add,
+.m-install-screen__ios-step-share {
+  padding : 0 0 0 3.6em;
+  position: relative;
+
+  &:before {
+    font-family: $font-icons;
+    font-size  : 3em;
+    left       : 0;
+    position   : absolute;
+    transform  : translateY(-50%);
+    top        : 50%;
+  }
+
+  h5 {
+    font-weight  : $font-weight-bold;
+    margin-bottom: $padding-x-small;
+  }
+}
+
+.m-install-screen__ios-step-add {
+  &:before {
+    content: 'add_box';
+    font-variation-settings:
+            'FILL' 0
+  }
+}
+
+.m-install-screen__ios-step-share {
+  &:before {
+    content: 'ios_share';
+  }
+}
+
+.m-install-screen__ios-title {
+  h4 {
+    font-weight: $font-weight-bold;
+  }
+}
+
+.m-install-screen__title {
+  margin    : 0 0 $padding-medium;
+  text-align: center;
+}

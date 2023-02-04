@@ -1,0 +1,55 @@
+@import "../../../00-Base/Sass/config";
+
+.o-sign-up-form {
+  background-color: $colour-blue-light;
+  display         : flex;
+  flex-direction  : column;
+  justify-content : space-between;
+  min-height      : 100vh;
+}
+
+.o-sign-in-form__api-error {
+  max-width: $container-content-width;
+  margin   : 0 auto $padding-medium;
+  padding  : 0 $padding-medium;
+}
+
+.o-sign-in-form__api-error-inner {
+  background-color: $colour-orange;
+  padding   : $padding-small;
+  text-align: center;
+}
+
+.o-sign-up-form__login {
+  margin-top    : 2 * $padding-large;
+  padding-bottom: $padding-large;
+  text-align    : center;
+}
+
+.o-sign-up-form__main {
+  position: relative;
+
+  .c-progress-spinner {
+    background-color: #DDE1E280;
+  }
+}
+
+.o-sign-up-form__submit-success {
+  max-width: $container-content-width;
+  margin   : 0 auto $padding-medium;
+  padding  : 0 $padding-medium;
+}
+
+.o-sign-up-form__submit-success-inner {
+  background-color: $colour-blue;
+  padding   : $padding-small;
+  text-align: center;
+}
+
+.o-sign-up-form__terms {
+  text-align : center;
+}
+
+.o-sign-up-form__top-bar {
+  margin-bottom : $padding-large;
+}

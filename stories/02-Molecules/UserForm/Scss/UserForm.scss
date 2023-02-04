@@ -1,0 +1,95 @@
+@import "../../../00-Base/Sass/config";
+
+.m-user-form {
+  background-color: $colour-blue-light;
+  display         : flex;
+  flex-direction  : column;
+  justify-content : space-between;
+  min-height      : 100vh;
+}
+
+.m-user-form__error-recoverable {
+  max-width: $container-content-width;
+  margin   : 0 auto $padding-medium;
+  padding  : 0 $padding-medium;
+}
+
+.m-user-form__error-recoverable-inner {
+  background-color: $colour-orange;
+  padding   : $padding-small;
+  text-align: center;
+}
+
+.m-user-form__error-unrecoverable {
+  max-width: $container-content-width;
+  margin   : 0 auto $padding-medium;
+  padding  : 0 $padding-medium;
+}
+
+.m-user-form__error-unrecoverable-inner {
+  background-color: $colour-orange;
+  padding   : $padding-small;
+  text-align: center;
+
+  button {
+    @include text-link;
+    text-decoration: underline;
+
+    &:focus,
+    &:hover {
+      background-color: $colour-grey;
+      color: $colour-orange;
+    }
+  }
+}
+
+.m-user-form__footer {
+  margin-top    : 2 * $padding-large;
+  padding-bottom: $padding-large;
+  text-align    : center;
+}
+
+.m-user-form__main {
+  position: relative;
+  z-index : 1;
+
+  .c-progress-spinner {
+    background-color: #DDE1E280;
+    z-index: 3;
+  }
+}
+
+.m-user-form__main-form-title {
+  margin-bottom: $padding-large;
+  text-align   : center;
+}
+
+.m-user-form__submit-success {
+  max-width: $container-content-width;
+  margin   : 0 auto $padding-medium;
+  padding  : 0 $padding-medium;
+}
+
+.m-user-form__submit-success-inner {
+  background-color: $colour-blue;
+  padding   : $padding-small;
+  text-align: center;
+}
+
+.m-user-form__title {
+  margin-bottom: $padding-large;
+  padding-top  : $padding-large;
+  text-align   : center;
+
+  @media (min-width: $break-medium) {
+    padding-top  : $padding-large + $padding-medium;
+  }
+
+  @media (min-width: $break-large) {
+    padding-top  : 2 * $padding-large;
+  }
+}
+
+.m-user-form__top-bar {
+  margin-bottom : $padding-large;
+}
