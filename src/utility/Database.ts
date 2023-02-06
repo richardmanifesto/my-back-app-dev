@@ -1,4 +1,5 @@
 import { config, DynamoDB } from 'aws-sdk'
+import {config as awsConfigSettings }from "@root/aws-exports"
 
 /**
  * Generate a database connection.
@@ -7,20 +8,18 @@ import { config, DynamoDB } from 'aws-sdk'
  */
 export const DatabaseConnection = (): Promise<DynamoDB> => {
   return new Promise((resolve, reject) => {
-    const configSettings = {
-      region: process.env.AWS_REGION
-    }
+    // const configSettings = {
+    //   region: process.env.AWS_REGION
+    // }
+    //
+    // if (typeof process.env.AWS_REGION !== 'undefined') {
+    //   // @ts-ignore
+    //   configSettings.endpoint = process.env.AWS_ENDPOINT
+    // }
 
-    if (process.env.AWS_REGION) {
-      // @ts-ignore
-      configSettings.endpoint = process.env.AWS_ENDPOINT
-    }
+    console.log("DatabaseConnection", awsConfigSettings)
 
-    console.log("DatabaseConnection", configSettings)
-    console.log("process.env.AWS_ACCESS_KEY_ID", process.env.AWS_ACCESS_KEY_ID)
-    console.log("process.env.AWS_SECRET_ACCESS_KEY", process.env.AWS_SECRET_ACCESS_KEY)
-
-    config.update(configSettings)
+    config.update(awsConfigSettings)
     resolve(new DynamoDB())
   })
 }
