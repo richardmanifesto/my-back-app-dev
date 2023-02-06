@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react"
 import {ActivityManager}    from "./ActivityManager"
 import {ActivityGroups}     from "../../Data/ActivityGroups"
 import {swRetrieveActivitiesForDate, swSaveActivitiesForDate} from "../../Utility/ServiceWorkerMocks"
-import {MyBackLocalStore} from "../../../src/classes/MyBackLocalStore"
-import {MyBackAppManager} from "../../../src/classes/MyBackAppManager"
-import {MyBackApi}        from "../../../src/classes/MyBackApi"
+import {MyBackLocalStore} from "@root/src/classes/MyBackLocalStore"
+import {MyBackAppManager} from "@root/src/classes/MyBackAppManager"
+import {MyBackApi}        from "@root/src/classes/MyBackApi"
 
 export default {
   title    : "03-Organisms/ActivityManager",

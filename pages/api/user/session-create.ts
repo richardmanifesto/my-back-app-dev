@@ -46,8 +46,8 @@ const handlePostRequest = async (req: NextApiRequest, res: NextApiResponse<ApiSe
     const user           = await userHandler.userValidateLogin(req.body.email_address, req.body.password)
     const sessionHandler = SessionHandler.create()
     const sessionToken   = await sessionHandler.tokenCreate({
-      userId     : user._id.toString(),
-      role       : user.role,
+      userId     : user.id,
+      role       : user.user_role,
       isTemporary: false
     })
 

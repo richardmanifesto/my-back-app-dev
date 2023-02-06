@@ -1,5 +1,3 @@
-import {ObjectId} from "mongodb"
-
 /**
  * The possible record types.
  */
@@ -17,12 +15,12 @@ export type UserRoleType = typeof UserRoleTypes[number]
  * UserRecord.
  */
 export type UserRecord = {
-  _id?               : ObjectId
+  id?                : string
   first_name         : string
   last_name          : string
   email_address      : string
   ailment_description: string
-  role               : UserRoleType
+  user_role          : UserRoleType
   date_of_birth      : string
   password?          : string
 }
@@ -36,6 +34,6 @@ export type UserUpdateRecord = {
   email_address?      : string
   ailment_description?: string
   date_of_birth?      : string
-  role?               : UserRoleType
+  user_role?          : UserRoleType
   password?           : string
 }

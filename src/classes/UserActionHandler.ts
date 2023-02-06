@@ -1,15 +1,14 @@
-import {Collection, Db, ObjectId} from "mongodb"
-import {BSONError} from "bson"
 import {HandlerBase}   from "./HandlerBase"
 import {ErrorResponse} from "./ErrorResponse"
-import {UserActionRecord, UserActionRecordType} from "../types/UserActionRecord"
+import {UserActionRecord, UserActionRecordType} from "@root/src/types/UserActionRecord"
 import {NotFoundError} from "./NotFoundError";
 import {UserRecord} from "@root/src/types/UserRecord";
+import {DynamoDB} from "aws-sdk";
 
 /**
  * UserHandler class.
  */
-export class UserActionHandler extends HandlerBase<UserActionRecord, UserActionRecord> {
+export class UserActionHandler extends HandlerBase<UserActionRecord> {
 
   /**
    * @inheritDoc.
@@ -17,61 +16,30 @@ export class UserActionHandler extends HandlerBase<UserActionRecord, UserActionR
   name = "user_action_handler"
 
   /**
+   * The DB table to use.
+   */
+  table = "user_actions"
+
+  /**
    * Object constructor.
    *
-   * @param {Collection<UserActionRecord>} itemCollection
+   * @param {DynamoDB} db
    *   The DB collection to use.
    */
-  constructor(itemCollection: Collection<UserActionRecord>) {
-    super()
-    this.itemCollection = itemCollection
+  constructor(db: DynamoDB) {
+    super(db)
   }
 
   /**
-   * Create factory.
+   * Static create function.
    *
-   * @param {Db} db
+   * @param {DynamoDB} db
    *   An instantiated DB object.
    */
-  static create(db: Db) {
-    const collection = db.collection<UserActionRecord>("user_actions")
-    return new UserActionHandler(collection)
+  static async create(db: DynamoDB) {
+    return new UserActionHandler(db)
   }
 
-  /**
-   * Make sure all errors thrown are of the type ErrorResponse.
-   *
-   * @param {unknown} error
-   *   The error that was thrown.
-   *
-   * @private
-   */
-  protected errorThrow (error: unknown): ErrorResponse {
-    if (error instanceof ErrorResponse) {
-      return error
-    }
-    else if (error instanceof BSONError ) {
-      return this.generateError(
-        HandlerBase.errorResponses.actionNotFound.type,
-        HandlerBase.errorResponses.actionNotFound.label,
-        error.message
-      )
-    }
-    else if (error instanceof NotFoundError ) {
-      return this.generateError(
-        HandlerBase.errorResponses.actionNotFound.type,
-        HandlerBase.errorResponses.actionNotFound.label,
-        error.message
-      )
-    }
-    else {
-      return this.generateError(
-        HandlerBase.errorResponses.unexpectedError.type,
-        HandlerBase.errorResponses.unexpectedError.label,
-        JSON.stringify(error)
-      )
-    }
-  }
 
   /**
    * Create a user action.
@@ -87,13 +55,22 @@ export class UserActionHandler extends HandlerBase<UserActionRecord, UserActionR
   actionCreate(userId: string, actionType: UserActionRecordType): Promise<string> {
     return new Promise(async (resolve, reject) => {
       try {
-        const result = await this.collectionItemCreate({
-          type   : actionType,
-          userId : new ObjectId(userId),
-          created: (new Date()).toString(),
 
-        })
-        resolve(result)
+        const actionID = this.uuidCreate()
+
+        const item: DynamoDB.PutItemInput = {
+          Item                 : {
+            id                 : {"S": actionID},
+            userId             : {"S": userId},
+            type               : {"S": actionType},
+            created            : {"S": (new Date()).toISOString()}
+          },
+          TableName             : this.table,
+          ReturnConsumedCapacity: "TOTAL"
+        }
+
+        await this.dbItemCreate(item)
+        resolve(actionID)
       }
       catch (error: unknown) {
         reject(this.errorThrow(error))
@@ -107,19 +84,11 @@ export class UserActionHandler extends HandlerBase<UserActionRecord, UserActionR
    * @param {string} id
    *   The ID of the user to delete.
    *
-   * @return {Promise<boolean>}
-   *   A boolean indicating the user was deleted successfully.
+   * @return {Promise<UserActionRecord>}
+   *   The returned user action.
    */
   actionClaim(id: string): Promise<UserActionRecord> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const result = await this.collectionItemFindById(id)
-        resolve(result)
-      }
-      catch (error: unknown) {
-        reject(this.errorThrow(error))
-      }
-    })
+    return this.actionGetById(id)
   }
 
   /**
@@ -132,7 +101,7 @@ export class UserActionHandler extends HandlerBase<UserActionRecord, UserActionR
    *   A boolean indicating the user was deleted successfully.
    */
   actionDelete(id: string): Promise<boolean> {
-    return this.collectionItemDelete(id)
+    return this.dbItemDelete(id)
   }
 
   /**
@@ -147,13 +116,46 @@ export class UserActionHandler extends HandlerBase<UserActionRecord, UserActionR
   actionGetById(id: string): Promise<UserActionRecord> {
     return new Promise(async (resolve, reject) => {
       try {
-        const result = await this.collectionItemFindById(id)
-        resolve(result)
+        const result = await this.dbItemFindById(id)
+        resolve({
+          id     : result.Item.id.S,
+          userId : result.Item.userId.S,
+          type   : result.Item.type.S as UserActionRecordType,
+          created: result.Item.created.S,
+        })
       }
       catch (error: unknown) {
         reject(this.errorThrow(error))
       }
     })
+  }
+
+  /**
+   * Make sure all errors thrown are of the type ErrorResponse.
+   *
+   * @param {unknown} error
+   *   The error that was thrown.
+   *
+   * @private
+   */
+  protected errorThrow (error: unknown): ErrorResponse {
+    if (error instanceof ErrorResponse) {
+      return error
+    }
+    else if (error instanceof NotFoundError ) {
+      return this.generateError(
+        HandlerBase.errorResponses.actionNotFound.type,
+        HandlerBase.errorResponses.actionNotFound.label,
+        error.message
+      )
+    }
+    else {
+      return this.generateError(
+        HandlerBase.errorResponses.unexpectedError.type,
+        HandlerBase.errorResponses.unexpectedError.label,
+        JSON.stringify(error)
+      )
+    }
   }
 }
 

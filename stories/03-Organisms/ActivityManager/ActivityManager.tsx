@@ -68,7 +68,7 @@ export const ActivityManager = ({ currentDate, date, groups, manager, onClose }:
   useEffect(() => {
     if (manager) {
       manager.meActivityGetForDate(date)
-        .then(data => valuesSet(data.values))
+        .then(data => valuesSet(data.activity_values))
         .catch(error => {
           console.log(error)
           valuesSet({})

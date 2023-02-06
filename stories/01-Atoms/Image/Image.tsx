@@ -1,4 +1,4 @@
-import {ResponsiveImage} from "../../00-Base/Types/ResponsiveImage"
+import {ResponsiveImage} from "@root/src/types/ResponsiveImage"
 
 
 export const Image = (image: ResponsiveImage) => {

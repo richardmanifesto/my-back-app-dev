@@ -1,7 +1,8 @@
 import {SessionHandler} from "../src/classes/SessionHandler"
-import {wait} from "./setup/helpers"
-import {ErrorResponse} from "../src/classes/ErrorResponse"
-import {HandlerBase}   from "../src/classes/HandlerBase"
+import {wait}           from "./setup/helpers"
+import {ErrorResponse}  from "../src/classes/ErrorResponse"
+import {HandlerBase}    from "../src/classes/HandlerBase"
+import {Claim} from "@root/src/types/Claim";
 
 describe("User session actions", () => {
 
@@ -9,19 +10,19 @@ describe("User session actions", () => {
     const key = "private-key"
 
     const sessionHandler = new SessionHandler(key)
-    const userData       = {userId: "1234", role: "user"}
+    const userData:Claim = {userId: "1234", role: "user", isTemporary: false}
     const token          = await sessionHandler.tokenCreate(userData)
     const claim          = await sessionHandler.tokenVerify(token)
 
-    expect(claim.payload.userId).toEqual(userData.userId)
-    expect(claim.payload.role).toEqual(userData.role)
+    expect(claim.userId).toEqual(userData.userId)
+    expect(claim.role).toEqual(userData.role)
   })
 
   it("Cannot claim an expired token.", async () => {
     const key = "private-key"
 
     const sessionHandler = new SessionHandler(key)
-    const userData       = {userId: "1234", role: "user"}
+    const userData:Claim = {userId: "1234", role: "user", isTemporary: false}
     const token          = await sessionHandler.tokenCreate(userData, "1s")
 
     await wait(3000)

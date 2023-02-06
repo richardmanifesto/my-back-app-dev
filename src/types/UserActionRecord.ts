@@ -1,5 +1,3 @@
-import {ObjectId} from "mongodb"
-
 /**
  * The possible record types.
  */
@@ -17,8 +15,8 @@ export type UserActionRecordType = typeof UserActionRecordTypes[number]
  * The user action record.
  */
 export type UserActionRecord = {
-  _id?   : ObjectId
-  userId : ObjectId
+  id?    : string
+  userId : string
   type   : UserActionRecordType
   created: string
 }

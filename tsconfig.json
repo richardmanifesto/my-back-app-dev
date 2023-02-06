@@ -22,9 +22,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@root/*": [
-        "./*"
-      ]
+      "@root/*": ["./*"],
+      "@public/*": ["./public/*"]
     },
     "skipLibCheck": true,
     "strict": false,

@@ -3,7 +3,7 @@ import {Field}             from "@root/src/types/Field"
 import {MyBackAppManager}  from "@root/src/classes/MyBackAppManager"
 import {ErrorResponse}     from "@root/src/classes/ErrorResponse"
 import {UserForm}          from "../../02-Molecules/UserForm/UserForm"
-import {cookieSet}         from "../../Utility/Cookie"
+import {cookieSet}         from "@root/src/utility/Cookie"
 
 
 /**

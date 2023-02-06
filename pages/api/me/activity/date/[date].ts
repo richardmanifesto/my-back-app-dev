@@ -6,7 +6,6 @@ import {ActivityHandler}    from "@root/src/classes/ActivityHandler"
 import {ActivityRecord}     from "@root/src/types/ActivityRecord"
 import {ApiErrorResponse}   from "@root/src/types/ApiErrorResponse"
 import {Claim}              from "@root/src/types/Claim"
-import {ObjectId}           from "bson"
 
 /**
  * ActivityRecordResponse.
@@ -25,6 +24,8 @@ const supportedMethods = ['GET', 'POST']
  */
 export default async function requestHandler(req: NextApiRequest, res: NextApiResponse<ActivityRecordResponse|ApiErrorResponse>) {
   const date = req.query.date
+
+  console.log("request.nextUrl.pathname", req.method)
 
   if (supportedMethods.includes(req.method)) {
     try {
@@ -67,8 +68,8 @@ const handleErrorResponse = (error: any, date, response: NextApiResponse<Activit
   if (error instanceof ErrorResponse) {
     if (error.responseCodeGet() === 404) {
       response.status(200).json({
-        date  : date.toString(),
-        values: {}
+        activity_date  : date.toString(),
+        activity_values: {}
       })
     }
     else {
@@ -99,8 +100,8 @@ const handleGetRequest = async (claim: Claim, handler: ActivityHandler, req: Nex
     const activity = await handler.activityGetForUserByDate(claim.userId, date.toString())
     res.status(200).json({
       userId: activity.userId,
-      date  : activity.date,
-      values: activity.values
+      activity_date  : activity.activity_date,
+      activity_values: activity.activity_values
     })
   }
   catch (error: any) {
@@ -128,15 +129,12 @@ const handlePostRequest = async (claim: Claim, handler: ActivityHandler, req: Ne
 
   try {
     const record: ActivityRecord = {
-      date  : date.toString(),
-      userId: new ObjectId(claim.userId),
-      values: body.values
+      activity_date  : date.toString(),
+      userId         : claim.userId,
+      activity_values: body.values
     }
 
-    await handler.activityUpsert(record, {
-      date  : date.toString(),
-      userId: new ObjectId(claim.userId)
-    })
+    await handler.activityUpsert(record)
 
     res.status(200).json(record)
   }

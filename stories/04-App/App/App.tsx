@@ -7,9 +7,9 @@ import {VideoItem} from "@root/src/types/VideoItem";
 import {youtubeLoad} from "../../Utility/Youtube";
 
 import {BottomBar} from "../../02-Molecules/BottomBar/BottomBar"
-import {MyBackLocalStore} from "../../../src/classes/MyBackLocalStore"
-import {MyBackAppManager} from "../../../src/classes/MyBackAppManager"
-import {MyBackApi}        from "../../../src/classes/MyBackApi"
+import {MyBackLocalStore} from "@root/src/classes/MyBackLocalStore"
+import {MyBackAppManager} from "@root/src/classes/MyBackAppManager"
+import {MyBackApi}        from "@root/src/classes/MyBackApi"
 import {AccountSidebar} from "../../02-Molecules/AccountSidebar/AccountSidebar";
 
 export type AppArgs = {

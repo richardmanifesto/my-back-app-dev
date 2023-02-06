@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react"
 
 import {PasswordResetForm}   from "./PasswordResetForm"
-import {MyBackLocalStore}    from "../../../src/classes/MyBackLocalStore"
-import {MyBackAppManager}    from "../../../src/classes/MyBackAppManager"
-import {MyBackApi}           from "../../../src/classes/MyBackApi"
+import {MyBackLocalStore}    from "@root/src/classes/MyBackLocalStore"
+import {MyBackAppManager}    from "@root/src/classes/MyBackAppManager"
+import {MyBackApi}           from "@root/src/classes/MyBackApi"
 import {swUserPasswordReset} from "../../Utility/ServiceWorkerMocks"
 import {PasswordResetFields} from "../../Data/Form"
 

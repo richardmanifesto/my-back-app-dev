@@ -17,7 +17,7 @@ const Template = ({label, name, max, min}) => {
 
   return (
     <div className={"b-container-slim"}>
-      <RangeSlider onChange={handleValueChange} label={label} name={name} max={max} min={min} />
+      <RangeSlider onChange={handleValueChange} max={max} min={min} />
     </div>
   )
 }

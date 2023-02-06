@@ -55,7 +55,7 @@ export default function Verify({fields, token, tokenIsValid}) {
 
 export async function getServerSideProps({ params }) {
   const db                = await DatabaseConnection()
-  const userActionHandler = UserActionHandler.create(db)
+  const userActionHandler = await UserActionHandler.create(db)
   let tokenIsValid        = false
 
   try {

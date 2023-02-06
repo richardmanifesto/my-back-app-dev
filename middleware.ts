@@ -1,7 +1,6 @@
 import { NextResponse }      from 'next/server'
 import type { NextRequest }  from 'next/server'
 import {SessionHandler}      from "@root/src/classes/SessionHandler"
-import {SignJWT, jwtVerify } from 'jose';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest, response: NextResponse) {
@@ -32,7 +31,7 @@ export const config = {
   matcher: [
     '/',
     '/api/me/update',
-    '/api/me/activity/for-date/[date]',
+    '/api/me/activity/date/[date]',
     '/user/logout'
   ],
 }

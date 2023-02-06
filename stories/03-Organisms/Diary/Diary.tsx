@@ -1,5 +1,5 @@
 import React, {useState, useRef}  from "react"
-import {MyBackAppManager}         from "../../00-Base/Classes/MyBackAppManager"
+import {MyBackAppManager}         from "@root/src/classes/MyBackAppManager"
 import {TopBar}                   from "../../01-Atoms/TopBar/TopBar"
 import {ActivityManagerGroupArgs} from "../../02-Molecules/ActivityManagerGroup/ActivityManagerGroup"
 import {DiarySheet}               from "../../02-Molecules/DiarySheet/DiarySheet"
@@ -101,7 +101,7 @@ export const Diary = ({currentDate, groups, manager}: DiaryArgs) => {
         <TopBar label={headerGet()} doBackAction={pushMonthToStack} doForwardAction={visibleDateIsCurrentDate() ? null : () => handlerDoForwardAction()}  />
       </header>
 
-      <Sheets ref={sheetsRef} onItemRemove={popMonthFromStack} shouldRemove={false}>
+      <Sheets ref={sheetsRef} onItemRemove={popMonthFromStack}>
         {sheets.map((sheetDate, key) => {
           return (
             <DiarySheet key={key} onSelect={handleSelect} currentDate={currentDate} activeDate={sheetDate} />

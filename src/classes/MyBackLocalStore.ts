@@ -66,7 +66,7 @@ export class MyBackLocalStore {
           )
         }
 
-        this.db.createObjectStore("activity", { keyPath: "date"})
+        this.db.createObjectStore("activity", { keyPath: "activity_date"})
       }
     })
   }
@@ -91,8 +91,8 @@ export class MyBackLocalStore {
         }
         else {
           resolve({
-            date  : date.toISOString(),
-            values: {}
+            activity_date  : date.toISOString(),
+            activity_values: {}
           })
         }
 
@@ -102,8 +102,8 @@ export class MyBackLocalStore {
         console.error(request.error)
 
         resolve({
-          date  : date.toISOString(),
-          values: {}
+          activity_date  : date.toISOString(),
+          activity_values: {}
         })
       }
     })
@@ -126,8 +126,8 @@ export class MyBackLocalStore {
       const store = this.db.transaction("activity", "readwrite").objectStore("activity")
 
       const request = store.put({
-        date           : date.toISOString(),
-        values         : values,
+        activity_date  : date.toISOString(),
+        activity_values: values,
         hasStoredRemote: hasStoredRemote
       })
 

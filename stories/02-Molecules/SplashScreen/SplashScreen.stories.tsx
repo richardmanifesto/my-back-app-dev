@@ -12,7 +12,7 @@ export default {
 
 const Template = () => {
   return (
-    <SplashScreen  />
+    <SplashScreen  state={''} />
   )
 }
 

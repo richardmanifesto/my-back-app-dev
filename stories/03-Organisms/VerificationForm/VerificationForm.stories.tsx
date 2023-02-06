@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react"
 
 import {VerificationForm} from "./VerificationForm"
 import {VerificationFormFields} from "../../Data/Form"
-import {MyBackLocalStore} from "../../../src/classes/MyBackLocalStore"
-import {MyBackAppManager} from "../../../src/classes/MyBackAppManager"
-import {MyBackApi}        from "../../../src/classes/MyBackApi"
-import {swUserUpdate, swUserVerify} from "../../Utility/ServiceWorkerMocks"
+import {MyBackLocalStore} from "@root/src/classes/MyBackLocalStore"
+import {MyBackAppManager} from "@root/src/classes/MyBackAppManager"
+import {MyBackApi}        from "@root/src/classes/MyBackApi"
+import {swUserVerify} from "../../Utility/ServiceWorkerMocks"
 
 export default {
   title     : "03-Organisms/VerificationForm",

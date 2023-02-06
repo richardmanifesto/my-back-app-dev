@@ -13,8 +13,6 @@ export type BottomBarArgs = {
  * @constructor
  */
 export const BottomBar = ({ onTabSelected }: BottomBarArgs) => {
-
-
   return (
     <div className={"m-bottom-bar"}>
       <ul className={"m-bottom-bar__actions"}>

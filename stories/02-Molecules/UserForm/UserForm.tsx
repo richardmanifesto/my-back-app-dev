@@ -1,10 +1,9 @@
-import React, {ReactNode, useState} from "react"
+import React, {ReactNode} from "react"
 import {Field}            from "@root/src/types/Field"
 import {TopBar}           from "../../01-Atoms/TopBar/TopBar"
 import {WebForm}          from "../../02-Molecules/WebForm/WebForm"
 import {ProgressSpinner}  from "../..//01-Atoms/ProgressSpinner/ProgressSpinner"
 import {MyBackAppManager} from "@root/src/classes/MyBackAppManager"
-import {ErrorResponse}    from "@root/src/classes/ErrorResponse"
 
 /**
  * UserFormArgs.

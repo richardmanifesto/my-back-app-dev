@@ -3,8 +3,7 @@ import React, {useEffect, useState} from "react"
 import {App} from "./App"
 import {ActivityGroups} from "../../Data/ActivityGroups"
 import {ExampleVideos} from "../../Data/Videos"
-import {swRetrieveActivitiesForDate, swSaveActivitiesForDate} from "../../Utility/ServiceWorkerMocks";
-import {HomeScreenExample} from "../../03-Organisms/HomeScreen/HomeScreen.stories";
+import {swRetrieveActivitiesForDate, swSaveActivitiesForDate} from "../../Utility/ServiceWorkerMocks"
 
 
 export default {

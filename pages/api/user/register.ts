@@ -53,7 +53,7 @@ const handlePostRequest = async (req: NextApiRequest, res: NextApiResponse<Creat
     email_address      : req.body.email_address,
     first_name         : req.body.first_name,
     last_name          : req.body.last_name,
-    role               : "user"
+    user_role          : "user"
   }
 
   if (req.body.password) {

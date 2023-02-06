@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react"
 
 import {UserForm}         from "./UserForm"
-import {MyBackLocalStore} from "../../../src/classes/MyBackLocalStore"
-import {MyBackAppManager} from "../../../src/classes/MyBackAppManager"
-import {MyBackApi}        from "../../../src/classes/MyBackApi"
-import {ErrorResponse}    from "../../../src/classes/ErrorResponse"
+import {MyBackLocalStore} from "@root/src/classes/MyBackLocalStore"
+import {MyBackAppManager} from "@root/src/classes/MyBackAppManager"
+import {MyBackApi}        from "@root/src/classes/MyBackApi"
+import {ErrorResponse}    from "@root/src/classes/ErrorResponse"
 import {swUserRegister, swUserSessionCreate} from "../../Utility/ServiceWorkerMocks"
-import {SignInFormFields, SignUpFormFields} from "../../Data/Form"
+import {SignUpFormFields} from "../../Data/Form"
 
 export default {
   title    : "02-Molecules/UserForm",

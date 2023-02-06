@@ -2,7 +2,7 @@ import React, {useMemo, useState} from "react"
 
 import {VideoItem} from "@root/src/types/VideoItem"
 import {Video} from "../../01-Atoms/Video/Video";
-import {VideoExplorerSidebar} from "../../02-Molecules/VideoExplorerSidebar/VideoExplorerSidebar";
+import {VideoExplorerSidebar} from "../../02-Molecules/VideoExplorerSidebar/VideoExplorerSidebar"
 import {Filters} from "@root/src/types/Filters"
 
 export type VideoExplorerArgs = {

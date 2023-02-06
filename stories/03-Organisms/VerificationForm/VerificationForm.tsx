@@ -5,7 +5,7 @@ import {MyBackAppManager} from "@root/src/classes/MyBackAppManager"
 import {ResponsiveImage}  from "@root/src/types/ResponsiveImage"
 import {ErrorResponse}    from "@root/src/classes/ErrorResponse"
 import {UserForm}         from "../../02-Molecules/UserForm/UserForm"
-import {cookieSet}        from "../../Utility/Cookie"
+import {cookieSet}        from "@root/src/utility/Cookie"
 import {InstallScreen}    from "../../02-Molecules/InstallScreen/InstallScreen"
 import {Browser}          from "../../Utility/Browser"
 

@@ -36,7 +36,7 @@ export class MyBackApi {
    */
   meActivitySaveForDate(date: Date, values: ActivityRecordValues): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.api.post(`/api/me/activity/for-date/${date.toISOString()}`, {values: values})
+      this.api.post(`/api/me/activity/date/${date.toISOString()}`, {values: values})
         .then(() => resolve())
         .catch(error => reject(MyBackApi.generateError(error)))
     })
@@ -52,7 +52,7 @@ export class MyBackApi {
    */
   meActivityGetForDate(date: Date): Promise<ActivityRecord> {
     return new Promise((resolve, reject) => {
-      this.api.get(`/api/me/activity/for-date/${date.toISOString()}`)
+      this.api.get(`/api/me/activity/date/${date.toISOString()}`)
         .then(response => resolve(response.data))
         .catch(error => reject(MyBackApi.generateError(error)))
     })

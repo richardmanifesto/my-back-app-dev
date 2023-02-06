@@ -14,7 +14,7 @@ const randomYesNoValueGet = () => {
  * @returns {RestHandler<import("./handlers/RequestHandler").MockedRequest<DefaultRequestBody>>}
  */
 export const swRetrieveActivitiesForDate = (withError = false, timeout: number = 1000) => {
-  return rest.get("/api/me/activity/for-date/:date", (req, res, ctx) => {
+  return rest.get("/api/me/activity/date/:date", (req, res, ctx) => {
     return new Promise((resolve) => {
       setTimeout(() => {
         if (withError) {
@@ -23,8 +23,8 @@ export const swRetrieveActivitiesForDate = (withError = false, timeout: number =
         else {
           resolve(
             res(ctx.json({
-              date  : req.params.date,
-              values: {
+              activity_date  : req.params.date,
+              activity_values: {
                 sleep_value     : randomRangeValueGet(),
                 sleep_quality   : randomRangeValueGet(),
                 exercise_value  : randomYesNoValueGet(),
@@ -48,7 +48,7 @@ export const swRetrieveActivitiesForDate = (withError = false, timeout: number =
  * @returns {RestHandler<import("./handlers/RequestHandler").MockedRequest<DefaultRequestBody>>}
  */
 export const swSaveActivitiesForDate = (withError = false, timeout: number = 1000) => {
-  return rest.post("/api/me/activity/for-date/:date", (req, res, ctx) => {
+  return rest.post("/api/me/activity/date/:date", (req, res, ctx) => {
     return new Promise((resolve) => {
       setTimeout(() => {
         if (withError) {

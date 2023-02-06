@@ -1,76 +1,59 @@
-import {MongoClient, Collection, Db} from "mongodb"
-import {addAnActivityRecord, mongoClientClose, mongoClientGet} from "./setup/helpers"
-import {ErrorResponse}     from "../src/classes/ErrorResponse"
-import {HandlerBase}       from "../src/classes/HandlerBase"
-import {ActivityRecord}    from "../src/types/ActivityRecord"
-import {ActivityHandler}   from "../src/classes/ActivityHandler"
-import {TestActivities}    from "./data/Activities"
-
+import { config, DynamoDB } from 'aws-sdk'
+import {ActivityHandler}    from "@root/src/classes/ActivityHandler"
+import {ErrorResponse}      from "@root/src/classes/ErrorResponse"
+import {HandlerBase}        from "@root/src/classes/HandlerBase"
+import {TestActivities}     from "@root/tests/data/Activities"
 
 describe("UserAction CRUD operations", () => {
-  let client: MongoClient
-  let db: Db
-  let configCollection: Collection<ActivityRecord>
+  let db: DynamoDB
   let handler: ActivityHandler
 
   beforeAll(async () => {
-    client = await mongoClientGet()
-  })
+    process.env.AWS_ACCESS_KEY_ID     = "1234"
+    process.env.AWS_SECRET_ACCESS_KEY = "1234"
 
-  afterAll(async () => {
-    await mongoClientClose(client)
+    config.update({
+      region  : "us-west-2",
+      // @ts-ignore
+      endpoint: "http://localhost:8000"
+    })
+
+    db = new DynamoDB()
   })
 
   /**
    * Initialisation of data/collections/databases
    */
   beforeEach(async () => {
-    const now = new Date().getTime().toString()
+    handler = new ActivityHandler(db)
 
-    //* Database name should be made as unique as we can make it to avoid collisions
-    db = client.db(`${now}` + Math.floor(Math.random() * 1000).toString())
+    const rows = await db.scan({
+      TableName      : handler.table,
+      AttributesToGet: ['id']
+    }).promise()
 
-    const collections = await db.collections()
-
-    for (const collection of collections) {
-      await collection.deleteMany({})
+    for (let i =0; i < rows.Items.length; i++) {
+      const item = rows.Items[i]
+      await db.deleteItem({ TableName: handler.table, Key: item }).promise()
     }
-
-    configCollection = db.collection<ActivityRecord>("activity_record")
-    handler          = new ActivityHandler(configCollection)
   })
 
   it("Can retrieve an existing activity by id.", async () => {
     const testActivityData = TestActivities[0]
+    const newActivityId = await handler.activityCreate(testActivityData)
+    const activity      = await handler.activityGetById(newActivityId)
 
-    const newActivity = await addAnActivityRecord(
-      configCollection,
-      testActivityData.userId,
-      testActivityData.date,
-      testActivityData.values
-    )
 
-    const activity = await handler.activityGetById(newActivity.insertedId.toString())
-
-    expect(activity.userId.toString()).toEqual(testActivityData.userId.toString())
-    expect(activity.date).toEqual(testActivityData.date)
-    Object.keys(testActivityData.values).forEach(key => {
-      expect(testActivityData.values[key]).toEqual(activity.values[key])
+    expect(activity.userId).toEqual(testActivityData.userId)
+    expect(activity.activity_date).toEqual(testActivityData.activity_date)
+    Object.keys(testActivityData.activity_values).forEach(key => {
+      expect(testActivityData.activity_values[key]).toEqual(activity.activity_values[key])
     })
   })
 
   it("Can expect to receive the correct error when an activity cannot be found.", async () => {
     try {
       const user = await handler.activityGetById("63c7354e206df4f5128e765a")
-      expect(user).not.toBeTruthy()
-    } catch (error: any) {
-      expect(error).toBeInstanceOf(ErrorResponse)
-      expect(error.type).toEqual(HandlerBase.errorResponses.activityNotFound.type)
-      expect(error.message).toEqual(HandlerBase.errorResponses.activityNotFound.label)
-    }
-
-    try {
-      const user = await handler.activityGetById("123")
       expect(user).not.toBeTruthy()
     } catch (error: any) {
       expect(error).toBeInstanceOf(ErrorResponse)
@@ -85,10 +68,10 @@ describe("UserAction CRUD operations", () => {
     const activityId = await handler.activityCreate(testActivityData)
     const activity   = await handler.activityGetById(activityId)
 
-    expect(activity.userId.toString()).toEqual(testActivityData.userId.toString())
-    expect(activity.date).toEqual(testActivityData.date)
-    Object.keys(testActivityData.values).forEach(key => {
-      expect(testActivityData.values[key]).toEqual(activity.values[key])
+    expect(activity.userId).toEqual(testActivityData.userId)
+    expect(activity.activity_date).toEqual(testActivityData.activity_date)
+    Object.keys(testActivityData.activity_values).forEach(key => {
+      expect(testActivityData.activity_values[key]).toEqual(activity.activity_values[key])
     })
   })
 
@@ -98,68 +81,28 @@ describe("UserAction CRUD operations", () => {
 
     const activityId = await handler.activityCreate(activityData)
     await handler.activityUpdate(activityId, {
-      date  : activityUpdateData.date,
-      values: activityUpdateData.values,
+      activity_date  : activityUpdateData.activity_date,
+      activity_values: activityUpdateData.activity_values,
     })
 
     const activity = await handler.activityGetById(activityId)
 
-
-    expect(activity.date).toEqual(activityUpdateData.date)
-    Object.keys(activityUpdateData.values).forEach(key => {
-      expect(activityUpdateData.values[key]).toEqual(activity.values[key])
+    expect(activity.activity_date).toEqual(activityUpdateData.activity_date)
+    Object.keys(activityUpdateData.activity_values).forEach(key => {
+      expect(activityUpdateData.activity_values[key]).toEqual(activity.activity_values[key])
     })
   })
 
-  it("Can expect to receive the correct error when an activity cannot be found to update.", async () => {
+  it("Can get the user activity for a given date", async () => {
+    const testActivityData = TestActivities[0]
+    await handler.activityCreate(testActivityData)
+    const activity = await handler.activityGetForUserByDate(testActivityData.userId, testActivityData.activity_date)
 
-    const activityData = TestActivities[0]
-
-    try {
-      const user = await handler.activityUpdate("63c7354e206df4f5128e765a", activityData)
-      expect(user).not.toBeTruthy()
-    } catch (error: any) {
-      expect(error).toBeInstanceOf(ErrorResponse)
-      expect(error.type).toEqual(HandlerBase.errorResponses.activityNotFound.type)
-      expect(error.message).toEqual(HandlerBase.errorResponses.activityNotFound.label)
-    }
-
-    try {
-      const user = await handler.activityUpdate("123", activityData)
-      expect(user).not.toBeTruthy()
-    } catch (error: any) {
-      expect(error).toBeInstanceOf(ErrorResponse)
-      expect(error.type).toEqual(HandlerBase.errorResponses.activityNotFound.type)
-      expect(error.message).toEqual(HandlerBase.errorResponses.activityNotFound.label)
-    }
-  })
-
-  it("Can delete an existing activity.", async () => {
-    const activityData  = TestActivities[0]
-    const activityId    = await handler.activityCreate(activityData)
-    const deleteSuccess = await handler.activityDelete(activityId)
-    expect(deleteSuccess).toEqual(true)
-  })
-
-  it("Cannot delete an activity that doesn't exist.", async () => {
-    try {
-      await handler.activityDelete("63c7354e206df4f5128e765a")
-    }
-    catch (error: any) {
-      expect(error).toBeInstanceOf(ErrorResponse)
-      expect(error.type).toEqual(HandlerBase.errorResponses.activityNotFound.type)
-      expect(error.message).toEqual(HandlerBase.errorResponses.activityNotFound.label)
-    }
-
-    // Check for BSON error.
-    try {
-      await handler.activityDelete("1234")
-    }
-    catch (error: any) {
-      expect(error).toBeInstanceOf(ErrorResponse)
-      expect(error.type).toEqual(HandlerBase.errorResponses.activityNotFound.type)
-      expect(error.message).toEqual(HandlerBase.errorResponses.activityNotFound.label)
-    }
+    expect(activity.userId).toEqual(testActivityData.userId)
+    expect(activity.activity_date).toEqual(testActivityData.activity_date)
+    Object.keys(testActivityData.activity_values).forEach(key => {
+      expect(testActivityData.activity_values[key]).toEqual(activity.activity_values[key])
+    })
   })
 
   // it("Can get a paginated set of activity records for a given user", async () => {

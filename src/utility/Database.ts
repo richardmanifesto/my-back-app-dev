@@ -1,30 +1,26 @@
-import {MongoClient}   from "mongodb"
-import {Db}            from "mongodb"
-import {ErrorResponse} from "../classes/ErrorResponse"
-
-const dbName = "my_back_app"
+import { config, DynamoDB } from 'aws-sdk'
 
 /**
  * Generate a database connection.
  *
  * @constructor
  */
-export const DatabaseConnection = (): Promise<Db> => {
+export const DatabaseConnection = (): Promise<DynamoDB> => {
   return new Promise((resolve, reject) => {
-    const client = new MongoClient(process.env["DB_CONNECTION"])
+    const configSettings = {
+      region: process.env.AWS_REGION
+    }
 
-    client.connect()
-      .then(() => {
-        resolve(client.db(dbName))
-      })
-      .catch(error => {
-        reject(
-          ErrorResponse.generateErrorResponse(
-            "unexpectedError",
-            "DatabaseConnection",
-            error
-          )
-        )
-      })
+    if (process.env.AWS_REGION) {
+      // @ts-ignore
+      configSettings.endpoint = process.env.AWS_ENDPOINT
+    }
+
+    console.log("DatabaseConnection", configSettings)
+    console.log("process.env.AWS_ACCESS_KEY_ID", process.env.AWS_ACCESS_KEY_ID)
+    console.log("process.env.AWS_SECRET_ACCESS_KEY", process.env.AWS_SECRET_ACCESS_KEY)
+
+    config.update(configSettings)
+    resolve(new DynamoDB())
   })
 }

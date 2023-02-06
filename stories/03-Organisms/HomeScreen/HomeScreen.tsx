@@ -3,7 +3,7 @@ import {ActivityIcon}               from "../../01-Atoms/ActivityIcon/ActivityIc
 import {ActivityManager}            from "../ActivityManager/ActivityManager"
 import {ActivityManagerGroupArgs}   from "../../02-Molecules/ActivityManagerGroup/ActivityManagerGroup"
 import {MyBackAppManager}           from "@root/src/classes/MyBackAppManager"
-import {SplashScreen}               from "../../02-Molecules/SplashScreen/SplashScreen";
+import {SplashScreen}               from "../../02-Molecules/SplashScreen/SplashScreen"
 
 
 export type HomeScreenArgs = {
@@ -23,6 +23,8 @@ export const HomeScreen = ({currentDate, groups, manager, welcomeMessage}: HomeS
       splashSet("ready")
       const startTime = Date.now()
 
+      console.log("herre")
+
       manager.meActivityGetForDate(currentDate)
         .then(values => {
           const duration = Date.now() - startTime
@@ -32,7 +34,7 @@ export const HomeScreen = ({currentDate, groups, manager, welcomeMessage}: HomeS
             splashSet("exit")
 
             setTimeout(() => {
-              currentValuesSet(values.values)
+              currentValuesSet(values.activity_values)
             }, 800)
 
           }, delay)
@@ -48,7 +50,7 @@ export const HomeScreen = ({currentDate, groups, manager, welcomeMessage}: HomeS
   useEffect(() => {
     if (manager) {
       manager.localStoreGetActivityForDate(currentDate)
-        .then(localValues => currentValuesSet(localValues.values))
+        .then(localValues => currentValuesSet(localValues.activity_values))
     }
   }, [selectedDate])
 

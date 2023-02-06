@@ -44,7 +44,7 @@ export class MyBackAppManager {
       try {
         const storedDate = await this.localStore.getActivityForDate(dateAtMidnight)
 
-        if (Object.keys(storedDate.values).length) {
+        if (Object.keys(storedDate.activity_values).length) {
           resolve(storedDate)
         }
         else {

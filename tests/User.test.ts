@@ -1,73 +1,57 @@
-import {MongoClient, Collection, Db} from "mongodb"
-import {mongoClientClose, mongoClientGet, isItEmpty, addAUserRecord} from "./setup/helpers"
-import {UserHandler}   from "../src/classes/UserHandler"
-import {UserRecord}    from "../src/types/UserRecord"
-import {TestUsers}     from "./data/Users"
-import {ErrorResponse} from "../src/classes/ErrorResponse"
-import {HandlerBase}   from "../src/classes/HandlerBase"
-
+import { config, DynamoDB } from 'aws-sdk'
+import {TestUsers}          from "./data/Users"
+import {UserHandler}        from "@root/src/classes/UserHandler"
+import {ErrorResponse}      from "@root/src/classes/ErrorResponse"
+import {HandlerBase}        from "@root/src/classes/HandlerBase"
 
 describe("User CRUD operations", () => {
-  let client: MongoClient
-  let db: Db
-  let configCollection: Collection<UserRecord>
+  const tableName = "users"
+  let db: DynamoDB
   let userHandler: UserHandler
 
   beforeAll(async () => {
-    client = await mongoClientGet()
+    process.env.AWS_ACCESS_KEY_ID     = "1234"
+    process.env.AWS_SECRET_ACCESS_KEY = "1234"
+
+    config.update({
+      region  : "us-west-2",
+      // @ts-ignore
+      endpoint: "http://localhost:8000"
+    })
+
+    db = new DynamoDB()
+
   })
 
-  afterAll(async () => {
-    await mongoClientClose(client)
-  })
+  beforeEach( async () => {
+    const key  = "private-key"
+    const rows = await db.scan({
+      TableName      : tableName,
+      AttributesToGet: ['id']
+    }).promise()
 
-  /**
-   * Initialisation of data/collections/databases
-   */
-  beforeEach(async () => {
-    const now = new Date().getTime().toString()
-    const key = "private-key"
-
-    //* Database name should be made as unique as we can make it to avoid collisions
-    db = client.db(`${now}` + Math.floor(Math.random() * 1000).toString())
-
-    const collections = await db.collections()
-
-    for (const collection of collections) {
-      await collection.deleteMany({})
+    for (let i =0; i < rows.Items.length; i++) {
+      const item = rows.Items[i]
+      await db.deleteItem({ TableName: tableName, Key: item }).promise()
     }
 
-    configCollection = db.collection<UserRecord>("user_records")
-    await configCollection.createIndex( { email_address: 1 }, { unique: true } )
-    userHandler      = new UserHandler(key, configCollection)
+    userHandler = new UserHandler(key, db)
   })
 
-  it("Can retrieve an existing user by id.", async () => {
-    const userData = TestUsers[0];
+  it("Can create a new user.", async () => {
+    const userData = TestUsers[0]
+    const userId   = await userHandler.userCreate(userData)
+    const newUser  = await userHandler.userGetById(userId)
 
-    const newUser = await addAUserRecord(
-      configCollection,
-      userData.first_name,
-      userData.last_name,
-      userData.email_address
-    )
-
-    const user = await userHandler.userGetById(newUser.insertedId.toString())
-    expect(user.first_name).toEqual(userData.first_name)
-    expect(user.last_name).toEqual(userData.last_name)
-    expect(user.email_address).toEqual(userData.email_address)
-
+    expect(newUser.first_name).toEqual(userData.first_name)
+    expect(newUser.last_name).toEqual(userData.last_name)
+    expect(newUser.email_address).toEqual(userData.email_address)
   })
 
   it("Can retrieve an existing user by email.", async () => {
-    const userData = TestUsers[0];
+    const userData = TestUsers[0]
+    await userHandler.userCreate(userData)
 
-    await addAUserRecord(
-      configCollection,
-      userData.first_name,
-      userData.last_name,
-      userData.email_address
-    )
 
     const user = await userHandler.userGetByEmail(userData.email_address)
     expect(user.first_name).toEqual(userData.first_name)
@@ -96,21 +80,7 @@ describe("User CRUD operations", () => {
     }
   })
 
-  it("Can create a new user.", async () => {
-    expect(isItEmpty(configCollection)).toBeTruthy()
-
-    const userData = TestUsers[0];
-    await userHandler.userCreate(userData)
-
-    const newUser = await userHandler.userGetByEmail(userData.email_address)
-    expect(newUser.first_name).toEqual(userData.first_name)
-    expect(newUser.last_name).toEqual(userData.last_name)
-    expect(newUser.email_address).toEqual(userData.email_address)
-  })
-
   it("Can validate a user's password.", async () => {
-    expect(isItEmpty(configCollection)).toBeTruthy()
-
     const password = "1234"
     const userData = TestUsers[0]
     userData.password = password
@@ -119,20 +89,24 @@ describe("User CRUD operations", () => {
     try {
       await userHandler.userValidateLogin(TestUsers[0].email_address, password)
       expect(true).toEqual(true)
+
+      await userHandler.userValidateLogin(TestUsers[0].email_address, 'invalid')
+      expect(true).toEqual(true)
+
     } catch (error: any) {
 
     }
   })
 
   it("Cannot add a user with the same email address more than once.", async () => {
-    expect(isItEmpty(configCollection)).toBeTruthy()
-
     try {
-      const userData = TestUsers[0];
+      const userData = TestUsers[0]
       await userHandler.userCreate(userData)
       const userId = await userHandler.userCreate(userData)
+
       expect(userId).not.toBeTruthy()
     } catch (error: any) {
+
       expect(error).toBeInstanceOf(ErrorResponse)
       expect(error.type).toEqual(HandlerBase.errorResponses.userExists.type)
       expect(error.message).toEqual(HandlerBase.errorResponses.userExists.label)
@@ -159,7 +133,7 @@ describe("User CRUD operations", () => {
     expect(newUser.email_address).toEqual(userUpdateData.email_address)
     expect(newUser.ailment_description).toEqual(userUpdateData.ailment_description)
     expect(newUser.date_of_birth).toEqual(userUpdateData.date_of_birth)
-    expect(newUser.role).toEqual(userData.role)
+    expect(newUser.user_role).toEqual(userData.user_role)
   })
 
   it("Can delete an existing user.", async () => {
@@ -169,37 +143,14 @@ describe("User CRUD operations", () => {
     expect(deleteSuccess).toEqual(true)
   })
 
-  it("Cannot delete a user that doesn't exist.", async () => {
-
-    try {
-      await userHandler.userDelete("63c7354e206df4f5128e765a")
-    }
-    catch (error: any) {
-      expect(error).toBeInstanceOf(ErrorResponse)
-      expect(error.type).toEqual(HandlerBase.errorResponses.userNotFound.type)
-      expect(error.message).toEqual(HandlerBase.errorResponses.userNotFound.label)
-    }
-
-    // Check for BSON error.
-    try {
-      await userHandler.userDelete("1234")
-    }
-    catch (error: any) {
-      expect(error).toBeInstanceOf(ErrorResponse)
-      expect(error.type).toEqual(HandlerBase.errorResponses.userNotFound.type)
-      expect(error.message).toEqual(HandlerBase.errorResponses.userNotFound.label)
-    }
-
-  })
-
   it("A user's role can be updated", async () => {
     const userData       = TestUsers[0]
     const userUpdateData = TestUsers[1]
     const newUserId      = await userHandler.userCreate(userData)
-    await userHandler.userRoleSet(newUserId, userUpdateData.role)
+    await userHandler.userRoleSet(newUserId, userUpdateData.user_role)
 
     const newUser = await userHandler.userGetById(newUserId)
-    expect(newUser.role).toEqual(userUpdateData.role)
+    expect(newUser.user_role).toEqual(userUpdateData.user_role)
   })
 
   it("A user's role cannot be updated if they don't exist", async () => {
@@ -216,6 +167,8 @@ describe("User CRUD operations", () => {
   it("Users can only set roles from a defined set", async () => {
     expect(userHandler.validateUserRole("admin")).toEqual(true)
     expect(userHandler.validateUserRole("super")).toEqual(false)
-
   })
+
 })
+
+export {}

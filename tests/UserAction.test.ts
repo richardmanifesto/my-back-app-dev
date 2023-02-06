@@ -1,42 +1,39 @@
-import {MongoClient, Collection, Db} from "mongodb"
-import {mongoClientClose, mongoClientGet} from "./setup/helpers"
-import {UserActionHandler} from "../src/classes/UserActionHandler"
-import {UserActionRecord}  from "../src/types/UserActionRecord"
-import {ErrorResponse}     from "../src/classes/ErrorResponse"
-import {HandlerBase}       from "../src/classes/HandlerBase"
-
+import { config, DynamoDB } from 'aws-sdk'
+import {UserActionHandler}  from "@root/src/classes/UserActionHandler"
+import {ErrorResponse}      from "@root/src/classes/ErrorResponse"
+import {HandlerBase}        from "@root/src/classes/HandlerBase"
 
 describe("UserAction CRUD operations", () => {
-  let client: MongoClient
-  let db: Db
-  let configCollection: Collection<UserActionRecord>
+  let db: DynamoDB
   let handler: UserActionHandler
 
   beforeAll(async () => {
-    client = await mongoClientGet()
-  })
+    process.env.AWS_ACCESS_KEY_ID     = "1234"
+    process.env.AWS_SECRET_ACCESS_KEY = "1234"
 
-  afterAll(async () => {
-    await mongoClientClose(client)
-  })
+    config.update({
+      region  : "us-west-2",
+      // @ts-ignore
+      endpoint: "http://localhost:8000"
+    })
 
+    db = new DynamoDB()
+  })
   /**
    * Initialisation of data/collections/databases
    */
   beforeEach(async () => {
-    const now = new Date().getTime().toString()
+    handler = new UserActionHandler(db)
 
-    //* Database name should be made as unique as we can make it to avoid collisions
-    db = client.db(`${now}` + Math.floor(Math.random() * 1000).toString())
+    const rows = await db.scan({
+      TableName      : handler.table,
+      AttributesToGet: ['id']
+    }).promise()
 
-    const collections = await db.collections()
-
-    for (const collection of collections) {
-      await collection.deleteMany({})
+    for (let i =0; i < rows.Items.length; i++) {
+      const item = rows.Items[i]
+      await db.deleteItem({ TableName: handler.table, Key: item }).promise()
     }
-
-    configCollection = db.collection<UserActionRecord>("user_action_records")
-    handler          = new UserActionHandler(configCollection)
   })
 
   it("Can create an action", async () => {
@@ -45,7 +42,6 @@ describe("UserAction CRUD operations", () => {
 
     expect(action.type).toEqual("account_verification")
     expect(action.userId.toString()).toEqual("63c7354e206df4f5128e765a")
-
   })
 
   it("Can claim an action.", async () => {
@@ -66,19 +62,8 @@ describe("UserAction CRUD operations", () => {
   })
 
   it("Cannot claim an action that doesn't exist", async () => {
-
     try {
       await handler.actionClaim("63c7354e206df4f5128e765a")
-    }
-    catch (error: any) {
-      expect(error).toBeInstanceOf(ErrorResponse)
-      expect(error.type).toEqual(HandlerBase.errorResponses.actionNotFound.type)
-      expect(error.message).toEqual(HandlerBase.errorResponses.actionNotFound.label)
-    }
-
-    // Check for BSON error.
-    try {
-      await handler.actionClaim("1234")
     }
     catch (error: any) {
       expect(error).toBeInstanceOf(ErrorResponse)

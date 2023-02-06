@@ -1,27 +1,25 @@
-import {ObjectId} from "mongodb"
-
 export type ActivityRecordValues = {
-  [key: string]: number | string
+  [key: string]: string
 }
 
 /**
  * The activity record type.
  */
 export type ActivityRecord = {
-  _id?            : ObjectId
-  userId?         : ObjectId
-  date            : string
+  id?             : string
+  userId?         : string
+  activity_date   : string
   hasStoredRemote?: boolean
-  values          : ActivityRecordValues
+  activity_values : ActivityRecordValues
 }
 
 /**
  * The activity record type.
  */
 export type ActivityUpdateRecord = {
-  _id?            : ObjectId
-  userId?         : ObjectId
-  date?           : string
+  id?             : string
+  userId?         : string
+  activity_date?  : string
   hasStoredRemote?: boolean
-  values?         : ActivityRecordValues
+  activity_values?: ActivityRecordValues
 }

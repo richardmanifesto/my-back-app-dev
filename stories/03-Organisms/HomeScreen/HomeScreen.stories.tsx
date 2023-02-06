@@ -3,11 +3,10 @@ import React, {useEffect, useState} from "react"
 import {HomeScreen} from "./HomeScreen"
 import {BottomBar} from "../../02-Molecules/BottomBar/BottomBar";
 import {ActivityGroups} from "../../Data/ActivityGroups"
-import {swRetrieveActivitiesForDate, swSaveActivitiesForDate} from "../../Utility/ServiceWorkerMocks";
-import {CurrentDayExample} from "../ActivityManager/ActivityManager.stories";
-import {MyBackLocalStore} from "../../../src/classes/MyBackLocalStore"
-import {MyBackAppManager} from "../../../src/classes/MyBackAppManager"
-import {MyBackApi}        from "../../../src/classes/MyBackApi"
+import {swRetrieveActivitiesForDate, swSaveActivitiesForDate} from "../../Utility/ServiceWorkerMocks"
+import {MyBackLocalStore} from "@root/src/classes/MyBackLocalStore"
+import {MyBackAppManager} from "@root/src/classes/MyBackAppManager"
+import {MyBackApi}        from "@root/src/classes/MyBackApi"
 
 export default {
   title    : "03-Organisms/HomeScreen",

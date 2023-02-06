@@ -1,12 +1,12 @@
 import Head from 'next/head'
-import React, {useEffect} from "react"
-import {App}            from "@root/stories/04-App/App/App"
-import {ActivityGroups} from "@root/stories/Data/ActivityGroups"
-import {ExampleVideos}  from "@root/stories/Data/Videos"
-import {SessionHandler} from "@root/src/classes/SessionHandler"
+import React, {useEffect}   from "react"
+import {App}                from "@root/stories/04-App/App/App"
+import {ActivityGroups}     from "@root/stories/Data/ActivityGroups"
+import {ExampleVideos}      from "@root/stories/Data/Videos"
+import {SessionHandler}     from "@root/src/classes/SessionHandler"
 import {DatabaseConnection} from "@root/src/utility/Database"
-import {UserHandler} from "@root/src/classes/UserHandler";
-import {UserRecord} from "@root/src/types/UserRecord";
+import {UserHandler}        from "@root/src/classes/UserHandler"
+import {UserRecord}         from "@root/src/types/UserRecord"
 /**
  * Render the home page.
  * @constructor
@@ -47,7 +47,7 @@ export async function getServerSideProps({req}) {
     email_address      : "",
     first_name         : "",
     last_name          : "",
-    role               : ""
+    user_role          : ""
   }
 
   try {
