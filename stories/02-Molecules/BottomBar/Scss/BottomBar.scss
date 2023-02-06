@@ -1,0 +1,84 @@
+@import "../../../00-Base/Sass/config";
+
+.m-bottom-bar {
+  @include bottom-bar-height;
+  background-color: #fff;
+  border-top: 1px solid $colour-grey-light;
+  bottom  : 0;
+  left    : 0;
+  position: fixed;
+  right   : 0;
+  z-index : 4;
+}
+
+.m-bottom-bar__actions {
+  display  : flex;
+  height   : 100%;
+  margin   : 0 auto;
+  max-width: $container-box-width;
+
+  li {
+    list-style: none;
+    width     : 25%;
+  }
+}
+
+
+.m-bottom-bar__action-link {
+  font-size: 0.8em;
+  height   : 100%;
+  width    : 100%;
+
+  @media (min-width: $break-medium) {
+    font-size: 0.9em;
+  }
+
+  &:before {
+    display      : block;
+    font-family  : $font-icons;
+    font-size    : 1.8em;
+    margin-bottom: 0.05em;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: $colour-grey-light;
+  }
+}
+
+.m-bottom-bar__action-link[data-icon-type="account"] {
+  &:before {
+    content: 'more_horiz';
+  }
+
+  span {
+    color  : transparent;
+    display: block;
+    height : 1px;
+    width  : 1px;
+  }
+}
+
+.m-bottom-bar__action-link[data-icon-type="my-day"] {
+  &:before {
+    content: 'home';
+  }
+}
+
+.m-bottom-bar__action-link[data-icon-type="diary"] {
+  &:before {
+    content: 'calendar_month';
+  }
+}
+
+.m-bottom-bar__action-link[data-icon-type="exercise"] {
+  &:before {
+    content: 'fitness_center';
+  }
+}
+
+.m-bottom-bar__action-link[data-icon-type="reports"] {
+  &:before {
+    content: 'monitoring';
+  }
+}

@@ -1,0 +1,43 @@
+@import "../../../00-Base/Sass/config";
+
+.o-activity-manager-group {
+  border   : 0;
+  padding  : 0;
+  position : relative;
+}
+
+.o-activity-manager-group__header {
+  display        : flex;
+  justify-content: space-between;
+  margin-bottom  : $padding-large;
+}
+
+.o-activity-manager-group__item {
+  padding: $padding-small 0;
+}
+
+.o-activity-manager-group__item[data-activty-type="range"] {
+  background-color: $colour-off-white;
+  padding: $padding-small;
+}
+
+.o-activity-manager-group__notes {
+  max-height: 0;
+  overflow  : hidden;
+  transition: max-height 250ms ease-out;
+
+  textarea {
+    background-color: $colour-off-white;
+    height: 12em;
+    padding   : $padding-x-small;
+    width     : 100%;
+  }
+}
+
+.o-activity-manager-group__notes-inner {
+  padding: $padding-medium 0 0;
+}
+
+.o-activity-manager-group__notes[data-is-open="true"] {
+  max-height: 20em;
+}

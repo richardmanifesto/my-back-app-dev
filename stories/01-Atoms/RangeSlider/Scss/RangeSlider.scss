@@ -1,0 +1,61 @@
+@import "../../../00-Base/Sass/config";
+
+.a-range-slider {
+  position: relative;
+}
+
+.a-range-slider__label-min,
+.a-range-slider__label-max {
+  @include text-small;
+}
+
+.a-range-slider__labels {
+  align-items    : center;
+  display        : flex;
+  justify-content: space-between;
+}
+
+.a-range-slider__rail {
+  background-color: $colour-russet;
+  height  : 0.2em;
+  margin  : 3em 0 1em;
+  padding : 0 0.8em;
+  position: relative;
+  width   : 100%;
+}
+
+.a-range-slider__rail-inner {
+  height  : 100%;
+  position: relative;
+  width   : 100%;
+}
+
+.a-range-slider__thumb {
+  background-color: $colour-yellow;
+  border       : 1px solid $colour-yellow;
+  border-radius: 50%;
+  cursor  : pointer;
+  height  : 1.6em;
+  left    : 0;
+  margin  : -0.7em 0 0 -0.8em;
+  outline : 0;
+  position: absolute;
+  top     : 0;
+  width   : 1.6em;
+
+  &:focus,
+  &:hover {
+    border-color: $colour-grey;
+  }
+}
+
+.a-range-slider__thumb-value {
+  left    : 50%;
+  position: absolute;
+  top     : -2em;
+  transform: translateX(-50%);
+
+  span {
+    @include text-h3;
+  }
+}

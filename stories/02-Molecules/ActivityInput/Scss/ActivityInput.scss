@@ -1,0 +1,41 @@
+@import "../../../00-Base/Sass/config";
+
+.m-activity-input {
+  align-items    : center;
+  display        : flex;
+  justify-content: space-between;
+
+  input,
+  select {
+    background-color   : $colour-off-white;
+    border             : 1px solid transparent;
+    border-bottom-color: $colour-grey;
+    margin-left        : $padding-medium;
+    max-width          : 5em;
+    outline            : none;
+    padding            : $padding-x-small;
+    text-align         : center;
+    width              : 100%;
+
+    &:focus {
+      border-color: $colour-blue;
+      border-bottom-width: 2px;
+      border-bottom-color: $colour-grey;
+    }
+  }
+
+  input {
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+.m-activity-input[data-input-type="range"] {
+  align-items   : unset;
+  flex-direction: column;
+}

@@ -1,0 +1,59 @@
+//.o-sign-in-form {
+//  background-color: $colour-blue-light;
+//  display         : flex;
+//  flex-direction  : column;
+//  justify-content : space-between;
+//  min-height      : 100vh;
+//}
+//
+//.o-sign-in-form__error-message {
+//  max-width: $container-content-width;
+//  margin: 0 auto;
+//}
+//
+//.o-sign-in-form__error-message-inner {
+//  background-color: $colour-orange;
+//  padding   : $padding-large;
+//  text-align: center;
+//
+//  button {
+//    @include text-link;
+//    text-decoration: underline;
+//
+//    &:focus,
+//    &:hover {
+//      background-color: $colour-grey;
+//      color: $colour-orange;
+//    }
+//  }
+//}
+//
+
+//
+//.o-sign-in-form__login {
+//  margin-top    : 2 * $padding-large;
+//  padding-bottom: $padding-large;
+//  text-align    : center;
+//}
+//
+//.o-sign-in-form__main {
+//  position: relative;
+//
+//  .c-progress-spinner {
+//    background-color: #DDE1E280;
+//  }
+//}
+//
+//.o-sign-in-form__title {
+//  margin-bottom: $padding-large;
+//  padding-top  : $padding-large;
+//  text-align   : center;
+//
+//  @media (min-width: $break-medium) {
+//    padding-top  : $padding-large + $padding-medium;
+//  }
+//
+//  @media (min-width: $break-large) {
+//    padding-top  : 2 * $padding-large;
+//  }
+//}

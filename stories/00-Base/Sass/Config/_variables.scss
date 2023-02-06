@@ -1,0 +1,48 @@
+@use "sass:math";
+
+$font-primary    : 'Montserrat', sans-serif;
+$font-icons      : 'Material Symbols Outlined';
+$font-size       : 16;
+$font-weight     : 400;
+$font-weight-bold: 600;
+
+$break-small  : math.div(600,  $font-size) * 1rem;
+$break-medium : math.div(768,  $font-size) * 1rem;
+$break-large  : math.div(992,  $font-size) * 1rem;
+$break-wide   : math.div(1200, $font-size) * 1rem;
+$break-xl     : math.div(1900, $font-size) * 1rem;
+
+$container-width         : math.div(1180, $font-size) * 1rem;
+$container-listing-width : math.div(980, $font-size) * 1rem;
+$container-extended-width: math.div(1420, $font-size) * 1rem;
+$container-slim-width    : math.div(700,  $font-size) * 1rem;
+$container-content-width : math.div(619,  $font-size) * 1rem;
+$container-box-width     : math.div(480,  $font-size) * 1rem;
+$container-card-width    : math.div(320,  $font-size) * 1rem;
+
+$padding-x-small: math.div(8, $font-size) * 1rem;
+$padding-small  : 1rem;
+$padding-medium : math.div(24, $font-size) * 1rem;
+$padding-large  : math.div(32, $font-size) * 1rem;
+$padding-xl     : math.div(40, $font-size) * 1rem;
+$padding-xxl    : math.div(64, $font-size) * 1rem;
+
+$radius-regular: 4px;
+$radius-medium: 8px;
+$radius-large: 12px;
+
+$colour-blue       : #7CC9F0;
+$colour-blue-dark  : #187dc0;
+$colour-blue-tint  : #B8E4F7;
+$colour-blue-light : #DDE1E2;
+$colour-green      : #A8CB5D;
+$colour-green-tint : #D2E4AE;
+$colour-grey       : #363635;
+$colour-grey-light : #36363530;
+$colour-off-white  : #F1F5F6;
+$colour-orange     : #EC9827;
+$colour-orange-tint: #F8CA90;
+$colour-red        : #802100;
+$colour-russet     : #D3CAC7;
+$colour-yellow     : #FADA00;
+$colour-yellow-tint: #FDF099;

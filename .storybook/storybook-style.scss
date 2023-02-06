@@ -1,0 +1,79 @@
+@import '../stories/00-base/sass/config';
+
+
+.example {
+  max-width: none;
+  padding: 0 !important;
+}
+
+.example-actions-fixed {
+  bottom         : 0;
+  display        : flex;
+  justify-content: center;
+  left           : 0;
+  position       : fixed;
+  right          : 0;
+  z-index        : 5;
+
+  button {
+    margin: 0 $padding-medium;
+  }
+}
+
+.example-heading {
+  margin-bottom: $padding-large !important;
+}
+
+.example-list {
+  margin : 0;
+  padding: 0;
+
+  & > li {
+    list-style: none;
+    margin: 0 0 $padding-medium;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.example-swatch-grid__colour {
+  aspect-ratio: 1;
+  position: relative;
+
+  span {
+    background-color: #fff;
+    bottom    : 1px;
+    left      : 1px;
+    padding   : 0.2em;
+    position  : absolute;
+    right     : 1px;
+    text-align: center;
+  }
+}
+
+.example-swatch-grid {
+  column-gap           : $padding-medium;
+  display              : grid;
+  grid-template-columns: 1fr 1fr;
+  margin               : 0 !important;
+  padding              : 0 !important;
+  row-gap              : $padding-medium;
+
+  @media (min-width: $break-medium) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  li {
+    list-style: none;
+    margin    : 0 !important;
+    text-align: center;
+  }
+}
+
+.background-blue {
+  background-color: $colour-blue-light;
+  min-height: 100vh;
+  padding   : $padding-medium;
+}

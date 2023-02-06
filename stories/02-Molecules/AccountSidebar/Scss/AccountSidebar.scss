@@ -1,0 +1,61 @@
+@import "../../../00-Base/Sass/config";
+
+.m-account-sidebar {
+  max-width : $container-box-width;
+  height    : 100vh;
+  overflow-y: scroll;
+  position  : relative;
+  transition: width 300ms ease-out;
+  width     : 0;
+  z-index   : 6;
+}
+
+.m-account-sidebar__close {
+  margin    : 0 0 0;
+  text-align: right;
+
+  button {
+    @include button-close;
+  }
+}
+
+.m-account-sidebar__header {
+  border-bottom: 1px solid $colour-grey-light;
+  padding: 0 0 $padding-small;
+  margin : 0 0 $padding-small;
+}
+
+.m-account-sidebar__inner {
+  background-color: $colour-off-white;
+  border-right    : 1px solid $colour-grey-light;
+  box-shadow      : -1em 0 3.2em $colour-grey;
+  margin          : 0 3em 0 0;
+  min-height      : 100%;
+  padding         : $padding-small $padding-small $padding-medium;
+}
+
+.m-account-sidebar__links {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  a {
+    @include text-stand-first;
+  }
+
+  li {
+    list-style: none;
+    margin    : 0 0 $padding-small;
+  }
+
+  ul {
+    margin : 0;
+    padding: 0;
+  }
+}
+
+
+.m-account-sidebar[data-state-open="true"] {
+  width: 100%;
+}
+

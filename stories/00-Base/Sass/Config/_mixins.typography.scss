@@ -1,0 +1,48 @@
+@mixin text-h1 {
+  font-size  : em(36);
+  font-weight: $font-weight;
+}
+
+@mixin text-h2 {
+  font-size  : em(30);
+  font-weight: $font-weight;
+}
+
+@mixin text-h3 {
+  font-size  : em(24);
+  font-weight: $font-weight;
+}
+
+@mixin text-h4 {
+  font-size  : em(20);
+  font-weight: $font-weight;
+}
+
+@mixin text-h5 {
+  font-size  : em(16);
+  font-weight: $font-weight;
+}
+
+@mixin text-stand-first {
+  font-size: em(20);
+}
+
+@mixin text-small {
+  font-size      : em(14);
+  text-decoration: underline;
+}
+
+
+@mixin text-link {
+  color: $colour-grey;
+  outline      : none;
+  padding-left : 0.2em;
+  padding-right: 0.2em;
+  transition: background-color 200ms ease-out;
+
+  &:focus,
+  &:hover {
+    background-color: $colour-yellow;
+  }
+}
+

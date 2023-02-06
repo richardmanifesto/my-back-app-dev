@@ -1,0 +1,89 @@
+@import "../../../00-Base/Sass/config";
+
+.o-activity-manager {
+  background-color: #fff;
+  height   : 100vh;
+  margin   : 0 auto;
+  max-width: $container-content-width;
+  overflow-y: scroll;
+  padding  : $padding-large $padding-small;
+  position : relative;
+  scroll-behavior: smooth;
+
+  &:after {
+    background-color: rgba(255, 255, 255, 0.8);
+    bottom  : 0;
+    display : none;
+    content : '';
+    left    : 0;
+    position: absolute;
+    right   : 0;
+    top     : 0;
+    z-index : 2;
+  }
+
+  .c-progress-spinner {
+    position : absolute;
+    top      : 50%;
+    transform: translateY(-50%);
+    z-index  : 3;
+  }
+}
+
+.o-activity-manager__inner {
+  position: relative;
+  z-index : 1;
+}
+
+.o-activity-manager__close {
+  margin    : 0 0 $padding-large;
+  position  : relative;
+  text-align: right;
+  z-index   : 3;
+
+  button {
+    border  : 1px solid transparent;
+    color   : transparent;
+    height  : 2em;
+    outline : none;
+    overflow: hidden;
+    position: relative;
+    width   : 2em;
+
+    &:after {
+      color      : $colour-grey;
+      content    : 'close';
+      font-family: $font-icons;
+      font-size  : 1.8em;
+      left       : 50%;
+      line-height: 0.95em;
+      position   : absolute;
+      top        : 50%;
+      transform  : translate(-50%, -50%);
+    }
+
+    &:focus,
+    &:hover {
+      background-color: $colour-blue;
+    }
+  }
+}
+
+.o-activity-manager__group {
+  border-bottom: 1px solid $colour-russet;
+  padding: $padding-large 0;
+}
+
+.o-activity-manager__title {
+  margin    : 0 0 $padding-large;
+  text-align: center;
+}
+
+.o-activity-manager[data-state="loading"],
+.o-activity-manager[data-state="saving"] {
+  overflow: hidden;
+
+  &:after {
+    display: block;
+  }
+}

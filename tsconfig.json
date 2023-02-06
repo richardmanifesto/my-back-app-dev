@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "lib": [
+      "es2021",
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "module": "esnext",
+    "target": "es6",
+    "jsx": "preserve",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "noEmit": false,
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./stories/00-Base/Types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@root/*": ["./*"],
+      "@public/*": ["./public/*"]
+    },
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
