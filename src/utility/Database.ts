@@ -17,9 +17,9 @@ export const DatabaseConnection = (): Promise<DynamoDB> => {
     //   configSettings.endpoint = process.env.AWS_ENDPOINT
     // }
 
-    console.log("DatabaseConnection", awsConfigSettings)
+    console.log("DatabaseConnection", config)
 
-    config.update(awsConfigSettings)
+    // config.update(awsConfigSettings)
     resolve(new DynamoDB())
   })
 }
