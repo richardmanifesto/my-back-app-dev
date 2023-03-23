@@ -1,5 +1,4 @@
 import { config, DynamoDB } from 'aws-sdk'
-import {config as awsConfigSettings }from "@root/aws-exports"
 
 /**
  * Generate a database connection.
@@ -12,14 +11,14 @@ export const DatabaseConnection = (): Promise<DynamoDB> => {
     //   region: process.env.AWS_REGION
     // }
     //
-    // if (typeof process.env.AWS_REGION !== 'undefined') {
+    // if (process.env.AWS_ENDPOINT) {
     //   // @ts-ignore
     //   configSettings.endpoint = process.env.AWS_ENDPOINT
     // }
-
-    console.log("DatabaseConnection", config)
-
-    // config.update(awsConfigSettings)
+    //
+    // // console.log("DatabaseConnection", config)
+    //
+    // config.update(configSettings)
     resolve(new DynamoDB())
   })
 }
