@@ -1,5 +1,5 @@
 import { config, DynamoDB } from 'aws-sdk'
-import exportConfig from "../aws-exports"
+// import exportConfig from "../aws-exports"
 
 /**
  * Generate a database connection.
@@ -21,7 +21,7 @@ export const DatabaseConnection = (): Promise<DynamoDB> => {
     //
     // config.update(configSettings)
 
-    console.log("exportConfig", exportConfig)
+    // console.log("exportConfig", exportConfig)
     console.log("env", process.env)
 
     resolve(new DynamoDB())
