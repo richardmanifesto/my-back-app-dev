@@ -8,9 +8,11 @@ import { config, DynamoDB } from 'aws-sdk'
  */
 export const DatabaseConnection = (): Promise<DynamoDB> => {
   return new Promise((resolve, reject) => {
-    // const configSettings = {
-    //   region: process.AWS_REGION
-    // }
+    const configSettings = {
+      region: process.env.AWS_REGION,
+      accessKeyId: process.env.ACCESS_KEY_ID,
+      secretAccessKey: process.env.SECRET_ACCESS_KEY
+    }
     //
     // if (process.env.AWS_ENDPOINT) {
     //   // @ts-ignore
@@ -19,7 +21,7 @@ export const DatabaseConnection = (): Promise<DynamoDB> => {
     //
     // // console.log("DatabaseConnection", config)
     //
-    // config.update(configSettings)
+    config.update(configSettings)
 
     // console.log("exportConfig", exportConfig)
     console.log("env", process.env)
