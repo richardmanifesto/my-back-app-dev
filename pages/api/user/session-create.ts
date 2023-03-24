@@ -5,7 +5,7 @@ import {ErrorResponse}      from "@root/src/classes/ErrorResponse"
 import {SessionHandler}     from "@root/src/classes/SessionHandler"
 import {UserHandler}        from "@root/src/classes/UserHandler"
 import { Amplify }          from 'aws-amplify'
-import awsExports           from "../../../aws-exports"
+import awsExports           from "../../../src/aws-exports"
 
 /**
  * ApiSessionResponse.
