@@ -5,7 +5,7 @@ import {ErrorResponse}      from "@root/src/classes/ErrorResponse"
 import {SessionHandler}     from "@root/src/classes/SessionHandler"
 import {UserHandler}        from "@root/src/classes/UserHandler"
 import { Amplify }          from 'aws-amplify'
-import awsExports           from "../../../src/aws-exports"
+import awsExports           from "../../../aws-exports"
 
 /**
  * ApiSessionResponse.
@@ -44,7 +44,7 @@ export default async function requestHandler(req: NextApiRequest, res: NextApiRe
  */
 const handlePostRequest = async (req: NextApiRequest, res: NextApiResponse<ApiSessionResponse|ApiErrorResponse>) => {
   console.log("awsExports", awsExports)
-  
+
   const db = await DatabaseConnection()
   const userHandler = await UserHandler.create(db)
 
