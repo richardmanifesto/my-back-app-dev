@@ -56,7 +56,7 @@ export const ActivityGroups = [
     suffix      : "hrs",
     fields: [
       {
-        label       : "Have you much time did you spend sitting",
+        label       : "How much time did you spend sitting",
         name        : "sitting_value",
         type        : "number",
         placeholder : "Enter",

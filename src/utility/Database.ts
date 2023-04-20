@@ -14,11 +14,11 @@ export const DatabaseConnection = (): Promise<DynamoDB> => {
       secretAccessKey: process.env.SECRET_ACCESS_KEY
     }
     //
-    // if (process.env.AWS_ENDPOINT) {
-    //   // @ts-ignore
-    //   configSettings.endpoint = process.env.AWS_ENDPOINT
-    // }
-    //
+    if (process.env.AWS_ENDPOINT) {
+      // @ts-ignore
+      configSettings.endpoint = process.env.AWS_ENDPOINT
+    }
+
     // // console.log("DatabaseConnection", config)
     //
     config.update(configSettings)
